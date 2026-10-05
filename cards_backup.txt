@@ -1,0 +1,143 @@
+Created At: 2026-10-05T12:40:57+05:30
+Completed At: 2026-10-05T12:41:01+05:30
+
+The command exited with code 0.
+Output:
+<truncated 6 lines>
+  <section class="py-20 sm:py-24 lg:py-28 bg-background">
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="text-center max-w-3xl mx-auto mb-14 lg:mb-16">
+              <span class="inline-block text-accent font-semibold text-xs sm:text-sm tracking-[0.25em] uppercase 
+mb-4">Program Levels</span>
+              <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-primary-text mb-5 leading-tight">
+                  Choose Your Level
+              </h2>
+              <p class="text-secondary-text text-base sm:text-lg leading-relaxed">
+                  Three progressive tracks that grow with your child's skills, from first-time speakers
+                  to seasoned competitors.
+              </p>
+          </div>
+  
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+              <!-- Beginner -->
+              <div class="group rounded-2xl border border-border bg-background overflow-hidden shadow-sm 
+hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
+                  <div class="h-52 overflow-hidden relative">
+                      <img src="https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=800&q=80"
+                           alt="Beginner program"
+                           class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                      <div class="absolute top-4 left-4 px-3 py-1.5 rounded-full bg-accent text-white text-xs 
+font-bold uppercase tracking-wider">
+                          Beginner
+                      </div>
+                  </div>
+                  <div class="p-6 sm:p-7">
+>                     <h3 class="text-xl font-bold text-primary-text mb-3">First Voice</h3>
+                      <p class="text-secondary-text text-sm leading-relaxed mb-5">
+                          For campers with little or no speaking experience. Focuses on comfort, basic structure,
+                          and delivering a short talk without fear.
+                      </p>
+                      <div class="space-y-2 mb-6">
+                          <div class="flex items-center gap-2 text-secondary-text text-xs">
+                              <i class="fa-solid fa-user-group text-accent"></i> Ages 11�?"13
+                          </div>
+                          <div class="flex items-center gap-2 text-secondary-text text-xs">
+                              <i class="fa-solid fa-clock text-accent"></i> 5 Days �?� 9am�?"3pm
+                          </div>
+                          <div class="flex items-center gap-2 text-secondary-text text-xs">
+                              <i class="fa-solid fa-users text-accent"></i> Max 12 campers
+                          </div>
+                      </div>
+                      <a href="signup.html" class="book-btn block text-center px-6 py-3 rounded-xl font-bold text-sm 
+shadow-md">
+>                         Enroll in First Voice
+                      </a>
+                  </div>
+              </div>
+  
+              <!-- Intermediate -->
+              <div class="group rounded-2xl border-2 border-accent bg-background overflow-hidden shadow-lg 
+hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 relative">
+                  <div class="absolute -top-0 left-1/2 -translate-x-1/2 px-4 py-1 bg-accent text-white text-xs 
+font-bold uppercase tracking-wider rounded-b-lg z-10">
+                      Most Popular
+                  </div>
+                  <div class="h-52 overflow-hidden relative">
+                      <img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?w=800&q=80"
+                           alt="Intermediate program"
+                           class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                      <div class="absolute top-4 left-4 px-3 py-1.5 rounded-full bg-accent text-white text-xs 
+font-bold uppercase tracking-wider">
+                          Intermediate
+                      </div>
+                  </div>
+                  <div class="p-6 sm:p-7">
+                      <h3 class="text-xl font-bold text-primary-text mb-3">Confident Speaker</h3>
+                      <p class="text-secondary-text text-sm leading-relaxed mb-5">
+                          For campers ready to refine delivery, master storytelling, and learn persuasive
+                          techniques. Includes a longer showcase speech.
+                      </p>
+                      <div class="space-y-2 mb-6">
+                          <div class="flex items-center gap-2 text-secondary-text text-xs">
+                              <i class="fa-solid fa-user-group text-accent"></i> Ages 13�?"15
+                          </div>
+                          <div class="flex items-center gap-2 text-secondary-text text-xs">
+                              <i class="fa-solid fa-clock text-accent"></i> 5 Days �?� 9am�?"4pm
+                          </div>
+                          <div class="flex items-center gap-2 text-secondary-text text-xs">
+                              <i class="fa-solid fa-users text-accent"></i> Max 14 campers
+                          </div>
+                      </div>
+                      <a href="signup.html" class="book-btn block text-center px-6 py-3 rounded-xl font-bold text-sm 
+shadow-md">
+                          Enroll in Confident Speaker
+                      </a>
+                  </div>
+              </div>
+  
+              <!-- Advanced -->
+              <div class="group rounded-2xl border border-border bg-background overflow-hidden shadow-sm 
+hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
+                  <div class="h-52 overflow-hidden relative">
+                      <img src="https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=800&q=80"
+                           alt="Advanced program"
+                           class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                      <div class="absolute top-4 left-4 px-3 py-1.5 rounded-full bg-accent text-white text-xs 
+font-bold uppercase tracking-wider">
+                          Advanced
+                      </div>
+                  </div>
+                  <div class="p-6 sm:p-7">
+                      <h3 class="text-xl font-bold text-primary-text mb-3">Competitive Edge</h3>
+                      <p class="text-secondary-text text-sm leading-relaxed mb-5">
+                          For experienced speakers preparing for competitions, debates, or leadership roles.
+                          Includes mock competitions and advanced rhetoric.
+                      </p>
+                      <div class="space-y-2 mb-6">
+                          <div class="flex items-center gap-2 text-secondary-text text-xs">
+                              <i class="fa-solid fa-user-group text-accent"></i> Ages 15�?"17
+                          </div>
+                          <div class="flex items-center gap-2 text-secondary-text text-xs">
+                              <i class="fa-solid fa-clock text-accent"></i> 5 Days �?� 9am�?"5pm
+                          </div>
+                          <div class="flex items-center gap-2 text-secondary-text text-xs">
+                              <i class="fa-solid fa-users text-accent"></i> Max 10 campers
+                          </div>
+                      </div>
+                      <a href="signup.html" class="book-btn block text-center px-6 py-3 rounded-xl font-bold text-sm 
+shadow-md">
+                          Enroll in Competitive Edge
+                      </a>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </section>
+  
+  
+  <!-- ============================= SECTION 3: PRICING / PLANS ============================= -->
+  <section class="py-20 sm:py-24 lg:py-28" style="background-color: var(--color-hover);">
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+
+
+

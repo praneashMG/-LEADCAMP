@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="assets/fav.png" type="image/jpeg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <title>Page Not Found · LEADCAMP</title>
+    <!-- Tailwind via CDN (same as your main site) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* --- Aspirational Leadership Palette (identical to main site) --- */
+        :root, html[data-theme='light'] {
+            --color-background: #FFFFFF;
+            --color-primary-text: #1E3A8A; 
+            --color-secondary-text: #475569; 
+            --color-accent: #F59E0B; 
+            --color-accent-light: #3B82F6; 
+            --color-border: #E5E7EB; 
+            --color-hover: #EFF6FF; 
+            --color-footer-bg: #0F172A;
+            --color-footer-text: #F8FAFC; 
+        }
+        html[data-theme='dark'] {
+            --color-background: #020617;
+            --color-primary-text: #F8FAFC;
+            --color-secondary-text: #94A3B8;
+            --color-accent: #F59E0B; 
+            --color-accent-light: #60A5FA; 
+            --color-border: #334155; 
+            --color-hover: #1E293B;
+            --color-footer-bg: #020617;
+            --color-footer-text: #F8FAFC;
+        }
+        
+        body {
+            background-color: var(--color-background);
+            color: var(--color-primary-text);
+            font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+            overflow-x: hidden;
+        }
+        
+        .text-primary-text { color: var(--color-primary-text); }
+        .text-secondary-text { color: var(--color-secondary-text); }
+        .text-accent { color: var(--color-accent); }
+        .bg-background { background-color: var(--color-background); }
+        .border-border { border-color: var(--color-border); }
+        .bg-hover { background-color: var(--color-hover); }
+
+        /* ── Typography Weight System (same as main) ── */
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 500 !important;
+        }
+        p, .text-secondary-text {
+            font-weight: 400 !important;
+        }
+
+        /* Glassmorphism (for possible small accent, but not used for navbar) */
+        .glass-panel {
+            background-color: color-mix(in srgb, var(--color-background) 85%, transparent);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-color: color-mix(in srgb, var(--color-border) 60%, transparent);
+        }
+
+        /* ── Canonical Button System (matching main) ── */
+        .btn-primary, .book-btn {
+            background: linear-gradient(135deg, #F59E0B 0%, #EA580C 100%);
+            color: white;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .btn-primary:hover, .book-btn:hover {
+            opacity: 0.88;
+            transform: scale(1.04);
+            box-shadow: 0 6px 18px rgba(245,158,11,0.3);
+        }
+        .btn-outline {
+            background: transparent;
+            color: var(--color-accent);
+            border: 2px solid var(--color-accent);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .btn-outline:hover {
+            background: var(--color-accent);
+            color: white;
+            box-shadow: 0 4px 12px rgba(245,158,11,0.25);
+        }
+        html[data-theme='dark'] .btn-outline {
+            color: var(--color-accent);
+            border-color: var(--color-accent);
+        }
+        html[data-theme='dark'] .btn-outline:hover {
+            background: var(--color-accent);
+            color: #000;
+        }
+
+        /* Rich Gradient (same) */
+        .bg-custom-gradient {
+            background: linear-gradient(135deg, #F59E0B 0%, #EA580C 100%);
+        }
+
+        /* 404 specific spacing */
+        .error-code {
+            font-size: clamp(6rem, 20vw, 12rem);
+            line-height: 1;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #F59E0B 0%, #EA580C 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 10px 30px rgba(245,158,11,0.15);
+        }
+
+        /* Theme toggle icon logic */
+        .light-icon, .dark-icon {
+            transition: opacity 0.2s;
+        }
+    </style>
+</head>
+<body class="antialiased flex flex-col min-h-screen">
+
+    <!-- ═══════════════════════════════════════════════════════════
+         NO NAVBAR — 404 PAGE ONLY
+         ═══════════════════════════════════════════════════════════ -->
+
+    <!-- Main 404 content -->
+    <main class="flex-grow flex items-center justify-center px-4 py-16 sm:py-20">
+        <div class="container mx-auto max-w-4xl text-center">
+
+            <!-- Icon / visual accent -->
+            <div class="mb-6 flex justify-center">
+                <div class="w-20 h-20 rounded-2xl bg-accent/10 flex items-center justify-center">
+                    <i class="fa-solid fa-microphone-lines text-accent text-4xl"></i>
+                </div>
+            </div>
+
+            <!-- 404 big number -->
+            <div class="error-code select-none">404</div>
+
+            <!-- Heading -->
+            <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold text-primary-text mt-2 mb-5 leading-tight">
+                The Stage Is <span class="text-accent">Empty</span>
+            </h1>
+
+            <!-- Description -->
+            <p class="text-secondary-text text-base sm:text-lg max-w-2xl mx-auto mb-8 leading-relaxed">
+                The page you're looking for doesn't exist — or has stepped off the podium. 
+                Let's get you back to the spotlight.
+            </p>
+
+            <!-- Action buttons -->
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mt-8">
+                <a href="index.html" class="book-btn px-8 py-4 rounded-xl font-bold text-lg shadow-lg w-full sm:w-auto text-center">
+                    <i class="fa-solid fa-house mr-2"></i> Back to Home
+                </a>
+                <a href="programs.html" class="btn-outline px-8 py-4 rounded-xl font-bold text-lg w-full sm:w-auto text-center">
+                    <i class="fa-solid fa-compass mr-2"></i> Explore Programs
+                </a>
+            </div>
+
+            <!-- Small helpful links -->
+            <div class="mt-10 flex flex-wrap items-center justify-center gap-6 text-sm text-secondary-text">
+                <a href="contact.html" class="hover:text-accent transition-colors flex items-center gap-1.5">
+                    <i class="fa-regular fa-envelope text-accent"></i> Contact Support
+                </a>
+                <span class="w-px h-4 bg-border hidden sm:block"></span>
+                <a href="signup.html" class="hover:text-accent transition-colors flex items-center gap-1.5">
+                    <i class="fa-regular fa-pen-to-square text-accent"></i> Enroll Now
+                </a>
+                <span class="w-px h-4 bg-border hidden sm:block"></span>
+                <button id="theme-toggle-404" class="hover:text-accent transition-colors flex items-center gap-1.5">
+                    <i class="fa-regular fa-moon text-accent"></i> Toggle Theme
+                </button>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Minimal footer (no navbar, but keeping a simple footer line) -->
+    <div class="py-8 text-center text-sm text-secondary-text border-t border-border mt-4">
+        <div class="container mx-auto px-4">
+            <span>© 2026 LEADCAMP · Speak with confidence, lead with purpose.</span>
+        </div>
+    </div>
+
+    <!-- Script: only theme toggle (no navbar, no drawer, no active nav logic) -->
+    <script>
+        (function() {
+            const html = document.documentElement;
+            const themeToggle = document.getElementById('theme-toggle-404');
+            
+            // Apply saved theme on load
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            html.setAttribute('data-theme', savedTheme);
+            updateIcon(savedTheme);
+
+            function updateIcon(theme) {
+                // Update any theme icons if needed (we use a single button, but for consistency)
+                const lightIcons = document.querySelectorAll('.light-icon');
+                const darkIcons = document.querySelectorAll('.dark-icon');
+                lightIcons.forEach(i => i.classList.toggle('hidden', theme === 'dark'));
+                darkIcons.forEach(i => i.classList.toggle('hidden', theme === 'light'));
+            }
+
+            // Toggle theme
+            if (themeToggle) {
+                themeToggle.addEventListener('click', () => {
+                    const next = html.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+                    localStorage.setItem('theme', next);
+                    html.setAttribute('data-theme', next);
+                    updateIcon(next);
+                });
+            }
+
+            // Also ensure that if user has RTL setting, it's applied (same as main site logic)
+            const savedLang = localStorage.getItem('language');
+            if (savedLang === 'ar') {
+                html.setAttribute('dir', 'rtl');
+            } else {
+                html.setAttribute('dir', 'ltr');
+            }
+        })();
+    </script>
+</body>
+</html> 

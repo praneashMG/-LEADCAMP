@@ -1,0 +1,412 @@
+                </div>
+            </div>
+        </div>
+
+        <!-- More link -->
+        <div class="text-center mt-12">
+            <a href="#" class="inline-flex items-center gap-2 text-accent font-semibold text-sm hover:gap-3 transition-all">
+                Watch more testimonials <i class="fa-solid fa-arrow-right text-xs"></i>
+            </a>
+        </div>
+    </div>
+</section>
+
+
+<!-- ============================= SECTION 5: COMMUNITY / IMPACT STATS ============================= -->
+<section class="py-20 sm:py-24 lg:py-28" style="background-color: var(--color-hover);">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-3xl mx-auto mb-14 lg:mb-16">
+            <span class="inline-block text-accent font-semibold text-xs sm:text-sm tracking-[0.25em] uppercase mb-4">The Bigger Picture</span>
+            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-primary-text mb-5 leading-tight">
+                A Community Of Brave Voices
+            </h2>
+            <p class="text-secondary-text text-base sm:text-lg leading-relaxed">
+                Behind every quote is a young person who chose courage. Here's the community
+                they've joined—and the impact they've helped build.
+            </p>
+        </div>
+
+        <!-- Big stat panel with featured quote -->
+        <div class="max-w-6xl mx-auto rounded-3xl overflow-hidden border border-border bg-background shadow-sm mb-10">
+            <div class="grid grid-cols-1 lg:grid-cols-5">
+
+                <!-- Left: big statement -->
+                <div class="lg:col-span-2 p-8 sm:p-10 lg:p-12 bg-accent relative">
+                    <i class="fa-solid fa-quote-left text-white/30 text-6xl absolute top-6 left-6"></i>
+                    <p class="relative text-white text-xl sm:text-2xl lg:text-3xl font-bold leading-tight mb-6 pt-8">
+                        "The confidence didn't fade when camp ended. It grew."
+                    </p>
+                    <p class="text-white/80 text-sm font-semibold uppercase tracking-wider mb-8">
+                        — 8 of 10 parents, 6 months after camp
+                    </p>
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/20 backdrop-blur-sm">
+                        <i class="fa-solid fa-chart-line text-white text-sm"></i>
+                        <span class="text-white text-xs font-bold">Long-term results</span>
+                    </div>
+                </div>
+
+                <!-- Right: stats grid -->
+                <div class="lg:col-span-3 p-6 sm:p-8 lg:p-10 grid grid-cols-2 gap-5 lg:gap-6">
+                    <div class="text-center p-4">
+                        <i class="fa-solid fa-microphone-lines text-accent text-2xl mb-3"></i>
+                        <p class="text-3xl sm:text-4xl font-bold text-accent mb-2">2,500+</p>
+                        <p class="text-secondary-text text-xs sm:text-sm">Speeches delivered</p>
+                    </div>
+                    <div class="text-center p-4">
+                        <i class="fa-solid fa-trophy text-accent text-2xl mb-3"></i>
+                        <p class="text-3xl sm:text-4xl font-bold text-accent mb-2">75+</p>
+                        <p class="text-secondary-text text-xs sm:text-sm">Competition wins</p>
+                    </div>
+                    <div class="text-center p-4">
+                        <i class="fa-solid fa-school text-accent text-2xl mb-3"></i>
+                        <p class="text-3xl sm:text-4xl font-bold text-accent mb-2">40+</p>
+                        <p class="text-secondary-text text-xs sm:text-sm">Partner schools</p>
+                    </div>
+                    <div class="text-center p-4">
+                        <i class="fa-solid fa-earth-americas text-accent text-2xl mb-3"></i>
+                        <p class="text-3xl sm:text-4xl font-bold text-accent mb-2">12</p>
+                        <p class="text-secondary-text text-xs sm:text-sm">Regions reached</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Trust badges row -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-5 lg:gap-6 max-w-5xl mx-auto">
+            <div class="flex items-center gap-4 p-5 rounded-2xl border border-border bg-background">
+                <div class="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center flex-shrink-0">
+                    <i class="fa-solid fa-shield-halved text-accent text-lg"></i>
+                </div>
+                <div>
+                    <p class="font-bold text-primary-text text-sm">Verified Reviews</p>
+                    <p class="text-secondary-text text-xs">All from real families</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-4 p-5 rounded-2xl border border-border bg-background">
+                <div class="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center flex-shrink-0">
+                    <i class="fa-solid fa-medal text-accent text-lg"></i>
+                </div>
+                <div>
+                    <p class="font-bold text-primary-text text-sm">Award-Winning</p>
+                    <p class="text-secondary-text text-xs">Best Youth Program 2025</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-4 p-5 rounded-2xl border border-border bg-background">
+                <div class="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center flex-shrink-0">
+                    <i class="fa-solid fa-rotate-left text-accent text-lg"></i>
+                </div>
+                <div>
+                    <p class="font-bold text-primary-text text-sm">Satisfaction Guarantee</p>
+                    <p class="text-secondary-text text-xs">100% money-back promise</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ============================= SECTION 6: FINAL CTA ============================= -->
+<section class="relative py-24 sm:py-28 lg:py-32 overflow-hidden">
+    <div class="absolute inset-0 z-0">
+        <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=1600&q=80"
+             alt="Campers celebrating together"
+             class="w-full h-full object-cover object-center">
+        <div class="absolute inset-0 bg-gradient-to-r from-black/85 via-black/70 to-black/60"></div>
+    </div>
+
+    <div class="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-3xl">
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/20 backdrop-blur-sm border border-accent/40 mb-8">
+            <i class="fa-solid fa-star text-accent text-sm"></i>
+            <span class="text-white text-sm font-medium">Join 500+ Families</span>
+        </div>
+
+        <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
+            Add Your Child's Voice<br>
+            To The <span class="text-accent">Next Chapter</span>
+        </h2>
+
+        <p class="text-lg sm:text-xl text-white/85 max-w-2xl mx-auto mb-10 leading-relaxed">
+            Every quote above began with a parent saying "let's try it." Your child's story
+            could be the next one we celebrate on this page.
+        </p>
+
+        <div class="grid sm:flex-row items-center justify-center gap-4 mb-10">
+            <a href="signup.html" class="book-btn px-8 py-4 rounded-xl font-bold text-lg shadow-lg w-full sm:w-auto text-center">
+                <i class="fa-solid fa-pen-to-square mr-2"></i> Enroll Now
+            </a>
+            <a href="contact.html" class="btn-outline px-8 py-4 rounded-xl font-bold text-lg w-full sm:w-auto text-center border-white text-white hover:bg-white hover:text-gray-900">
+                <i class="fa-solid fa-comments mr-2"></i> Book Free Call
+            </a>
+        </div>
+
+        <div class="flex flex-wrap items-center justify-center gap-6 text-white/60 text-sm">
+            <span class="flex items-center gap-2">
+                <i class="fa-solid fa-shield-halved text-accent"></i> Safe & Secure Enrollment
+            </span>
+            <span class="flex items-center gap-2">
+                <i class="fa-solid fa-rotate-left text-accent"></i> 100% Satisfaction Guarantee
+            </span>
+            <span class="flex items-center gap-2">
+                <i class="fa-solid fa-headset text-accent"></i> 24/7 Parent Support
+            </span>
+        </div>
+    </div>
+</section>
+    </main>
+
+        <div id="mobile-menu-drawer" class="fixed inset-0 z-50 pointer-events-none transition-all duration-300">
+            <div id="drawer-backdrop" class="absolute inset-0 bg-black opacity-0 transition-opacity duration-300 pointer-events-none"></div>
+            <div id="drawer-content" class="absolute top-0 left-0 right-0 bg-background rounded-b-2xl shadow-2xl p-6 xl:hidden max-h-[85vh] overflow-y-auto transform translate-y-[-100%] transition-transform duration-300 ease-out">
+                <div class="flex justify-between items-center pb-4 border-b border-border">
+                    <a href="index.html" class="text-2xl font-serif font-extrabold tracking-wide flex items-center gap-2">
+                        <i class="fa-solid fa-microphone-lines" style="color: var(--color-accent);"></i>
+                        <span style="color: var(--color-accent);">LEADCAMP</span>
+                    </a>
+                    <button id="mobile-menu-close" class="text-primary-text hover:text-accent"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+                </div>
+                <nav class="grid space-y-2 py-4">
+                    <div>
+                        <button class="block text-primary-text font-semibold text-lg py-2 w-full text-left flex justify-between items-center" id="mobile-homes-toggle">
+                            Home <svg class="w-4 h-4 transform transition-transform duration-200 text-primary-text" id="homes-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div id="mobile-homes-menu" class="hidden pl-4 grid space-y-1 mt-1 border-l-2 border-border">
+                            <a href="index.html" class="block text-secondary-text hover:text-accent text-base py-1">Home 1</a>
+                            <a href="home2.html" class="block text-secondary-text hover:text-accent text-base py-1">Home 2</a>
+                        </div>
+                    </div>
+    <a href="programs.html" class="block text-primary-text font-semibold text-lg py-2">Programs</a>
+    <a href="testimonials.html" class="block text-primary-text font-semibold text-lg py-2">Testimonials</a>
+    <a href="about.html" class="block text-primary-text font-semibold text-lg py-2">About</a>
+    <a href="contact.html" class="block text-primary-text font-semibold text-lg py-2">Contact</a>
+    <!-- Dashboard Dropdown -->
+    <div>
+        <button class="block text-primary-text font-semibold text-lg py-2 w-full text-left flex justify-between items-center" id="mobile-dashboard-toggle">
+            Dashboard
+            <svg class="w-4 h-4 transform transition-transform duration-200" id="dashboard-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+        </button>
+
+        <div id="mobile-dashboard-menu" class="hidden pl-4 grid space-y-1 mt-1 border-l-2 border-border">
+            <a href="admin.html" class="block text-secondary-text hover:text-accent text-base py-1">Admin Dashboard</a>
+            <a href="userdash.html" class="block text-secondary-text hover:text-accent text-base py-1">User Dashboard</a>
+        </div>
+    </div>
+                </nav>
+                <div class="pt-4 border-t border-border mt-4 flex justify-around items-center">
+                    <button id="mobile-lang-icon-drawer" class="grid items-center"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7.5 21 3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5" />
+    </svg><span class="text-xs mt-1 text-secondary-text">RTL</span></button>
+                    <button id="drawer-theme-toggle" class="grid items-center">
+                        <svg class="w-6 h-6 light-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+                        <svg class="w-6 h-6 dark-icon hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+                        <span class="text-xs mt-1 text-secondary-text">Theme</span>
+                    </button>
+                </div>
+                <div class="flex mt-5 gap-5 w-full">
+                    <a href="signup.html" class="w-full book-btn text-center py-2 rounded-xl font-bold text-sm shadow-md">Sign Up</a>
+                </div>
+            </div>
+        </div>
+
+        <footer id="main-footer" class="pt-20 transition-colors duration-300">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-12 pb-16 border-b border-gray-800">
+                    <div class="lg:col-span-2">
+                        <a href="index.html" class="text-3xl font-serif font-extrabold tracking-wide flex items-center gap-2 mb-4">    
+                            <i class="fa-solid fa-microphone-lines" style="color: var(--color-accent);"></i>
+                            <span style="color: var(--color-accent);">LEADCAMP</span>
+                        </a>
+    <p class="text-lg leading-relaxed max-w-sm !text-white-400">
+    Empowering the next generation with confident communication and leadership skills through inspiring camp sessions.</p>                    <div class="flex gap-6 mt-10">
+                            <a href="#" class="text-white hover:text-accent transition text-xl"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" class="text-white hover:text-accent transition text-xl"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="text-white hover:text-accent transition text-xl"><i class="fab fa-whatsapp"></i></a>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="footer-heading font-bold text-xl mb-6">Explore</h4>
+                    <ul class="space-y-4">
+        <li><a href="programs.html" class="footer-link">Programs</a></li>
+        <li><a href="testimonials.html" class="footer-link">Testimonials</a></li>
+        <li><a href="about.html" class="footer-link">About</a></li>
+        <li><a href="contact.html" class="footer-link">Contact</a></li>
+    </ul>
+                    </div>
+                    <div>
+                        <h4 class="footer-heading font-bold text-xl mb-6">Quick Links</h4>
+                        <ul class="space-y-4">
+                            <li><a href="admin.html" class="footer-link">Parent Dashboard</a></li>
+                            <li><a href="login.html" class="footer-link">Login</a></li>
+                            <li><a href="signup.html" class="footer-link">Enroll Child</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="footer-heading font-bold text-xl mb-6">Newsletter</h4>
+                        <div class="grid space-y-4">
+                            <input type="email" placeholder="Email address" class="p-4 text-sm rounded-xl bg-gray-900 border border-gray-800 focus:outline-none text-white" />
+                            <button class="btn-primary font-bold py-3 rounded-xl">Subscribe</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="py-10 text-center text-white-500 text-sm">© 2026 LEADCAMP . All rights reserved.</div>
+            </div>
+        </footer>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const html = document.documentElement;
+
+                // Drawer Control
+                const menuDrawer = document.getElementById('mobile-menu-drawer');
+                const menuContent = document.getElementById('drawer-content');
+                const menuBackdrop = document.getElementById('drawer-backdrop');
+
+                const openDrawer = () => {
+                    menuDrawer.classList.remove('pointer-events-none');
+                    menuContent.classList.remove('translate-y-[-100%]');
+                    menuBackdrop.classList.add('opacity-50', 'pointer-events-auto');
+                    document.body.style.overflow = 'hidden';
+                };
+                const closeDrawer = () => {
+                    menuContent.classList.add('translate-y-[-100%]');
+                    menuBackdrop.classList.remove('opacity-50', 'pointer-events-auto');
+                    setTimeout(() => { menuDrawer.classList.add('pointer-events-none'); document.body.style.overflow = ''; }, 300);
+                };
+
+                document.getElementById('mobile-menu-open').addEventListener('click', openDrawer);
+                document.getElementById('mobile-menu-close').addEventListener('click', closeDrawer);
+                menuBackdrop.addEventListener('click', closeDrawer);
+
+                // Accordions
+                const setupAccordion = (toggleId, menuId, iconId) => {
+                    const toggle = document.getElementById(toggleId);
+                    toggle?.addEventListener('click', () => {
+                        const menu = document.getElementById(menuId);
+                        const icon = document.getElementById(iconId);
+                        menu.classList.toggle('hidden');
+                        icon.classList.toggle('rotate-180');
+                    });
+                };
+                setupAccordion('mobile-homes-toggle', 'mobile-homes-menu', 'homes-icon');
+                setupAccordion('mobile-dashboard-toggle', 'mobile-dashboard-menu', 'dashboard-icon');
+
+
+                // Theme & RTL
+                const themeToggles = [document.getElementById('theme-toggle'), document.getElementById('drawer-theme-toggle')];
+                const applyTheme = (theme) => {
+                    html.setAttribute('data-theme', theme);
+                    document.querySelectorAll('.light-icon').forEach(i => i.classList.toggle('hidden', theme === 'dark'));
+                    document.querySelectorAll('.dark-icon').forEach(i => i.classList.toggle('hidden', theme === 'light'));
+                };
+                themeToggles.forEach(btn => btn.addEventListener('click', () => {
+                    const next = html.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+                    localStorage.setItem('theme', next);
+                    applyTheme(next);
+                }));
+                applyTheme(localStorage.getItem('theme') || 'light');
+
+                const langToggles = [document.getElementById('lang-icon'), document.getElementById('mobile-lang-icon-drawer')];
+                langToggles.forEach(btn => btn.addEventListener('click', () => {
+                    const current = localStorage.getItem('language') === 'ar' ? 'en' : 'ar';
+                    localStorage.setItem('language', current);
+                    html.setAttribute('dir', current === 'ar' ? 'rtl' : 'ltr');
+                }));
+                html.setAttribute('dir', localStorage.getItem('language') === 'ar' ? 'rtl' : 'ltr');
+
+                // Active Nav Logic
+                const setActiveNavLink = () => {
+                    const currentPath = window.location.pathname.split('/').pop() || 'index.html';
+                    
+                    // Desktop Links
+                    document.querySelectorAll('.nav-link').forEach(link => {
+                        if (link.getAttribute('href') === currentPath) {
+                            link.classList.add('active', 'text-accent', 'font-bold');
+                        } else {
+                            link.classList.remove('active', 'text-accent', 'font-bold');
+                        }
+                    });
+
+                    // Desktop Dropdowns
+                    if (['index.html', 'home2.html'].includes(currentPath)) {
+                        document.getElementById('home-dropdown-btn')?.classList.add('active', 'text-accent', 'font-bold');
+                    }
+                    if (['admin.html', 'userdash.html'].includes(currentPath)) {
+                        document.getElementById('dashboard-dropdown-btn')?.classList.add('active', 'text-accent', 'font-bold');
+                    }
+
+                    // Mobile Links
+                    document.querySelectorAll('#drawer-content a').forEach(link => {
+                        const href = link.getAttribute('href');
+                        if (href === currentPath) {
+                            link.classList.add('text-accent', 'font-bold');
+                            link.classList.remove('text-primary-text', 'text-secondary-text');
+                        } else {
+                            if (link.closest('#mobile-homes-menu') || link.closest('#mobile-dashboard-menu')) {
+                                link.classList.add('text-secondary-text');
+                                link.classList.remove('text-accent', 'font-bold');
+                            } else {
+                                link.classList.add('text-primary-text');
+                                link.classList.remove('text-accent', 'font-bold');
+                            }
+                        }
+                    });
+
+                    // Mobile Toggles
+                    if (['index.html', 'home2.html'].includes(currentPath)) {
+                        document.getElementById('mobile-homes-toggle')?.classList.add('text-accent', 'font-bold');
+                    }
+                    if (['admin.html', 'userdash.html'].includes(currentPath)) {
+                        document.getElementById('mobile-dashboard-toggle')?.classList.add('text-accent', 'font-bold');
+                    }
+                };
+                setActiveNavLink();
+            });
+            document.addEventListener("DOMContentLoaded", function () {
+
+        const btnMonthly = document.getElementById("btn-monthly");
+        const btnSeasonal = document.getElementById("btn-seasonal");
+
+        const monthlyPlans = document.getElementById("monthly-plans");
+        const seasonalPlans = document.getElementById("seasonal-plans");
+
+        if (!btnMonthly || !btnSeasonal || !monthlyPlans || !seasonalPlans) return;
+
+        btnMonthly.addEventListener("click", function () {
+
+            btnMonthly.classList.add("bg-[#E6B325]", "text-white", "shadow-lg");
+            btnMonthly.classList.remove("text-primary-text");
+
+            btnSeasonal.classList.remove("bg-[#E6B325]", "text-white", "shadow-lg");
+            btnSeasonal.classList.add("text-primary-text");
+
+            monthlyPlans.classList.remove("hidden");
+            monthlyPlans.classList.add("grid");
+
+            seasonalPlans.classList.remove("grid");
+            seasonalPlans.classList.add("hidden");
+
+        });
+
+        btnSeasonal.addEventListener("click", function () {
+
+            btnSeasonal.classList.add("bg-[#E6B325]", "text-white", "shadow-lg");
+            btnSeasonal.classList.remove("text-primary-text");
+
+            btnMonthly.classList.remove("bg-[#E6B325]", "text-white", "shadow-lg");
+            btnMonthly.classList.add("text-primary-text");
+
+            seasonalPlans.classList.remove("hidden");
+            seasonalPlans.classList.add("grid");
+
+            monthlyPlans.classList.remove("grid");
+            monthlyPlans.classList.add("hidden");
+
+        });
+
+    });
+        </script>
+    </body>
+    </html>
+
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.

@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="assets/fav.png" type="image/jpeg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <title>Sign In | LEADCAMP</title>
+    <script src="tailwind.js"></script>
+    <style>
+        /* --- LEADCAMP Aspirational Palette --- */
+        :root, html[data-theme='light'] {
+            --color-background: #FFFFFF;
+            --color-primary-text: #1E3A8A;
+            --color-secondary-text: #475569;
+            --color-accent: #F59E0B;
+            --color-accent-light: #3B82F6;
+            --color-border: #E5E7EB;
+            --color-hover: #EFF6FF;
+        }
+        html[data-theme='dark'] {
+            --color-background: #020617;
+            --color-primary-text: #F8FAFC;
+            --color-secondary-text: #94A3B8;
+            --color-accent: #F59E0B;
+            --color-accent-light: #60A5FA;
+            --color-border: #334155;
+            --color-hover: #1E293B;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+            background-color: var(--color-background);
+            color: var(--color-primary-text);
+            transition: background-color 0.3s, color 0.3s;
+            overflow: hidden;
+            position: relative;
+            padding: 1.5rem;
+        }
+
+        /* ── Animated gradient orbs background ── */
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.35;
+            z-index: 0;
+            pointer-events: none;
+            animation: float 18s ease-in-out infinite;
+        }
+        .orb-1 {
+            width: 500px; height: 500px;
+            background: radial-gradient(circle, #F59E0B 0%, transparent 70%);
+            top: -120px; left: -120px;
+            animation-delay: 0s;
+        }
+        .orb-2 {
+            width: 420px; height: 420px;
+            background: radial-gradient(circle, #3B82F6 0%, transparent 70%);
+            bottom: -100px; right: -100px;
+            animation-delay: -6s;
+        }
+        .orb-3 {
+            width: 380px; height: 380px;
+            background: radial-gradient(circle, #EA580C 0%, transparent 70%);
+            top: 40%; right: 25%;
+            animation-delay: -12s;
+            opacity: 0.2;
+        }
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(40px, -40px) scale(1.05); }
+            66% { transform: translate(-30px, 30px) scale(0.95); }
+        }
+        html[data-theme='dark'] .orb { opacity: 0.22; }
+
+        /* ── Floating controls ── */
+        .controls {
+            position: fixed;
+            top: 1.25rem;
+            right: 1.25rem;
+            display: flex;
+            gap: 0.5rem;
+            z-index: 50;
+        }
+        html[dir="rtl"] .controls { right: auto; left: 1.25rem; }
+
+        .btn-control {
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--color-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: var(--color-primary-text);
+        }
+        html[data-theme='dark'] .btn-control {
+            background: rgba(30, 41, 59, 0.85);
+        }
+        .btn-control:hover {
+            background: var(--color-accent);
+            color: white;
+            border-color: var(--color-accent);
+            transform: scale(1.08);
+        }
+
+        /* ── Glass card ── */
+        .glass-card {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 440px;
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(24px) saturate(180%);
+            -webkit-backdrop-filter: blur(24px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            border-radius: 28px;
+            padding: 2.5rem 2.25rem;
+            box-shadow: 0 30px 60px -15px rgba(15, 23, 42, 0.2),
+                        0 0 0 1px rgba(245, 158, 11, 0.05);
+            transition: all 0.4s ease;
+        }
+        html[data-theme='dark'] .glass-card {
+            background: rgba(15, 23, 42, 0.72);
+            border-color: rgba(245, 158, 11, 0.15);
+            box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.6),
+                        0 0 0 1px rgba(245, 158, 11, 0.1);
+        }
+
+        /* ── Logo ── */
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            margin-bottom: 1.75rem;
+        }
+        .logo-icon {
+            width: 52px; height: 52px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #F59E0B 0%, #EA580C 100%);
+            box-shadow: 0 8px 20px -4px rgba(245, 158, 11, 0.5);
+            color: white;
+            font-size: 1.35rem;
+            transition: transform 0.4s ease;
+        }
+        .logo:hover .logo-icon { transform: rotate(-12deg) scale(1.08); }
+        .logo-text {
+            font-family: ui-serif, Georgia, Cambria, "Times New Roman", serif;
+            font-weight: 800;
+            font-size: 1.5rem;
+            letter-spacing: 0.05em;
+            color: var(--color-accent);
+        }
+
+        /* ── Headings ── */
+        .heading {
+            font-family: ui-serif, Georgia, Cambria, serif;
+            font-weight: 600;
+            font-size: 1.65rem;
+            text-align: center;
+            color: var(--color-primary-text);
+            margin-bottom: 0.4rem;
+            line-height: 1.2;
+        }
+        .subheading {
+            font-size: 0.85rem;
+            text-align: center;
+            color: var(--color-secondary-text);
+            margin-bottom: 1.75rem;
+        }
+
+        /* ── Input fields ── */
+        .field-label {
+            display: block;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--color-secondary-text);
+            margin-bottom: 0.5rem;
+        }
+        .field-wrapper {
+            position: relative;
+            margin-bottom: 1.1rem;
+        }
+        .field-wrapper i.field-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--color-secondary-text);
+            font-size: 0.9rem;
+            pointer-events: none;
+            transition: color 0.2s ease;
+            z-index: 1;
+        }
+        html[dir="rtl"] .field-wrapper i.field-icon { left: auto; right: 1rem; }
+
+        .input {
+            width: 100%;
+            padding: 0.85rem 1rem 0.85rem 2.75rem;
+            border-radius: 14px;
+            font-size: 0.9rem;
+            background: rgba(255, 255, 255, 0.6);
+            border: 1.5px solid var(--color-border);
+            color: var(--color-primary-text);
+            outline: none;
+            transition: all 0.25s ease;
+            font-family: inherit;
+        }
+        html[dir="rtl"] .input { padding: 0.85rem 2.75rem 0.85rem 1rem; }
+        html[data-theme='dark'] .input { background: rgba(2, 6, 23, 0.5); }
+        .input::placeholder { color: var(--color-secondary-text); opacity: 0.6; }
+        .input:focus {
+            border-color: var(--color-accent);
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.15);
+        }
+        html[data-theme='dark'] .input:focus { background: rgba(2, 6, 23, 0.8); }
+        .input:focus ~ i.field-icon { color: var(--color-accent); }
+
+        .btn-password-toggle {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--color-secondary-text);
+            font-size: 0.85rem;
+            padding: 0.35rem;
+            transition: color 0.2s ease;
+            z-index: 2;
+        }
+        html[dir="rtl"] .btn-password-toggle { right: auto; left: 1rem; }
+        .btn-password-toggle:hover { color: var(--color-accent); }
+        .input.with-toggle { padding-right: 2.75rem; }
+        html[dir="rtl"] .input.with-toggle { padding-right: 2.75rem; padding-left: 2.75rem; }
+
+        /* ── Row: remember + forgot ── */
+        .form-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.4rem;
+            font-size: 0.8rem;
+        }
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            color: var(--color-secondary-text);
+        }
+        .checkbox-label input {
+            width: 15px; height: 15px;
+            accent-color: var(--color-accent);
+            cursor: pointer;
+        }
+        .forgot-link {
+            font-weight: 600;
+            color: var(--color-accent);
+            text-decoration: none;
+            transition: opacity 0.2s;
+        }
+        .forgot-link:hover { opacity: 0.75; text-decoration: underline; }
+
+        /* ── Submit button ── */
+        .btn-submit {
+            width: 100%;
+            padding: 0.95rem;
+            border: none;
+            border-radius: 14px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            letter-spacing: 0.03em;
+            color: white;
+            cursor: pointer;
+            background: linear-gradient(135deg, #F59E0B 0%, #EA580C 100%);
+            box-shadow: 0 10px 25px -8px rgba(245, 158, 11, 0.55);
+            transition: all 0.3s ease;
+            font-family: inherit;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+        }
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 30px -8px rgba(245, 158, 11, 0.7);
+        }
+        .btn-submit:active { transform: translateY(0); }
+
+        /* ── Divider ── */
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 0.9rem;
+            margin: 1.5rem 0 1.25rem;
+            color: var(--color-secondary-text);
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            opacity: 0.75;
+        }
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--color-border), transparent);
+        }
+
+        /* ── Social buttons ── */
+        .social-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.7rem;
+            margin-bottom: 1.5rem;
+        }
+        .social-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.55);
+            border: 1.5px solid var(--color-border);
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+        html[data-theme='dark'] .social-btn { background: rgba(2, 6, 23, 0.4); }
+        .social-btn:hover {
+            border-color: var(--color-accent);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px -6px rgba(245, 158, 11, 0.3);
+        }
+        .social-btn svg { width: 20px; height: 20px; }
+
+        /* ── Footer note ── */
+        .footer-note {
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--color-secondary-text);
+        }
+        .footer-note a {
+            font-weight: 700;
+            color: var(--color-accent);
+            text-decoration: none;
+        }
+        .footer-note a:hover { text-decoration: underline; }
+
+        /* ── Demo hint ── */
+        .demo-hint {
+            margin-top: 1.25rem;
+            padding: 0.7rem 1rem;
+            border-radius: 12px;
+            background: rgba(245, 158, 11, 0.08);
+            border: 1px solid rgba(245, 158, 11, 0.2);
+            text-align: center;
+            font-size: 0.72rem;
+            color: var(--color-secondary-text);
+        }
+        .demo-hint i { color: var(--color-accent); margin-right: 0.35rem; }
+
+        /* ── Fade-in animation ── */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.7s cubic-bezier(0.2, 0.9, 0.3, 1) forwards;
+        }
+        @keyframes fadeInUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ── RTL adjust ── */
+        html[dir="rtl"] .form-row { flex-direction: row-reverse; }
+
+        /* ── Responsive ── */
+        @media (max-width: 480px) {
+            .glass-card { padding: 2rem 1.5rem; border-radius: 24px; }
+            .heading { font-size: 1.4rem; }
+            .orb-1, .orb-2, .orb-3 { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Animated background orbs -->
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+
+    <!-- Floating controls -->
+    <div class="controls">
+        <button id="lang-toggle" class="btn-control" title="Toggle RTL/LTR">
+            <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7.5 21 3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5" />
+            </svg>
+        </button>
+        <button id="theme-toggle" class="btn-control" title="Toggle Dark Mode">
+            <svg class="light-icon" width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+            </svg>
+            <svg class="dark-icon hidden" width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+            </svg>
+        </button>
+    </div>
+
+    <!-- Glass card -->
+    <div class="glass-card fade-in">
+
+        <!-- Logo -->
+        <a href="index.html" class="logo">
+            <span class="logo-icon">
+                <i class="fa-solid fa-microphone-lines"></i>
+            </span>
+            <span class="logo-text">LEADCAMP</span>
+        </a>
+
+        <h1 class="heading">Welcome Back</h1>
+        <p class="subheading">Sign in to manage your child's leadership journey</p>
+
+        <!-- Login Form -->
+        <form id="loginForm" onsubmit="event.preventDefault(); handleLogin();">
+
+            <div class="field-wrapper">
+                <i class="fa-solid fa-envelope field-icon"></i>
+                <input type="email" id="loginEmail" class="input" placeholder="you@example.com" required autocomplete="email">
+            </div>
+
+            <div class="field-wrapper">
+                <i class="fa-solid fa-lock field-icon"></i>
+                <input type="password" id="loginPassword" class="input with-toggle" placeholder="••••••••" required autocomplete="current-password">
+                <button type="button" class="btn-password-toggle" onclick="togglePassword('loginPassword', this)">
+                    <i class="fa-regular fa-eye"></i>
+                </button>
+            </div>
+
+            <div class="form-row">
+                <label class="checkbox-label">
+                    <input type="checkbox">
+                    <span>Remember me</span>
+                </label>
+                <a href="#" class="forgot-link">Forgot password?</a>
+            </div>
+
+            <button type="submit" class="btn-submit">
+                <i class="fa-solid fa-arrow-right-to-bracket"></i>
+                Sign In
+            </button>
+        </form>
+
+        <!-- Divider -->
+        <div class="divider">or continue with</div>
+
+        <!-- Social login -->
+        <div class="social-row">
+            <button class="social-btn" title="Google" onclick="socialLogin('Google')">
+                <svg viewBox="0 0 48 48">
+                    <path fill="#EA4335" d="M24 9.5c3.2 0 6.1 1.1 8.3 3.1l6.2-6.2C34.8 2.4 29.7 0 24 0 14.6 0 6.6 5.5 2.7 13.4l7.3 5.7C11.9 13.1 17.4 9.5 24 9.5z"/>
+                    <path fill="#34A853" d="M46.1 24.5c0-1.7-.2-3.3-.5-4.9H24v9.3h12.4c-.5 2.9-2.1 5.4-4.5 7.1l6.9 5.4c4-3.7 6.3-9.1 6.3-16.9z"/>
+                    <path fill="#FBBC05" d="M10 28.7c-.5-1.4-.8-2.9-.8-4.4s.3-3 .8-4.4l-7.3-5.7C1 17.1 0 20.4 0 24s1 6.9 2.7 9.8l7.3-5.7z"/>
+                    <path fill="#EA4335" d="M24 48c6.5 0 11.9-2.1 15.8-5.7l-6.9-5.4c-2 1.3-4.6 2.1-8.9 2.1-6.6 0-12.1-3.6-14.1-8.6l-7.3 5.7C6.6 42.5 14.6 48 24 48z"/>
+                </svg>
+            </button>
+            <button class="social-btn" title="Apple" onclick="socialLogin('Apple')">
+                <svg fill="currentColor" viewBox="0 0 24 24" style="color: var(--color-primary-text);">
+                    <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09l.01-.01zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/>
+                </svg>
+            </button>
+            <button class="social-btn" title="Facebook" onclick="socialLogin('Facebook')">
+                <svg fill="#1877F2" viewBox="0 0 24 24">
+                    <path d="M22 12a10 10 0 10-11.5 9.88v-7H8v-2.88h2.5V9.5c0-2.46 1.47-3.82 3.72-3.82 1.08 0 2.2.2 2.2.2v2.4h-1.24c-1.22 0-1.6.76-1.6 1.54v1.85H16l-.4 2.88h-2.18v7A10 10 0 0022 12z"/>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Footer -->
+        <p class="footer-note">
+            New to LEADCAMP?
+            <a href="signup.html">Create an account</a>
+        </p>
+
+        <!-- Demo hint -->
+        <div class="demo-hint">
+            <i class="fa-solid fa-circle-info"></i>
+            Demo: parent@leadcamp.com / any password
+        </div>
+    </div>
+
+    <script>
+        const html = document.documentElement;
+        const body = document.body;
+
+        // ── Theme Toggle ──
+        const themeBtn = document.getElementById('theme-toggle');
+        const applyTheme = (theme) => {
+            html.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+            document.querySelectorAll('.light-icon').forEach(i => i.classList.toggle('hidden', theme === 'dark'));
+            document.querySelectorAll('.dark-icon').forEach(i => i.classList.toggle('hidden', theme === 'light'));
+        };
+        themeBtn.addEventListener('click', () => {
+            const next = html.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+            applyTheme(next);
+        });
+        applyTheme(localStorage.getItem('theme') || 'light');
+
+        // ── RTL Toggle ──
+        const langBtn = document.getElementById('lang-toggle');
+        langBtn.addEventListener('click', () => {
+            const isRtl = html.getAttribute('dir') === 'rtl';
+            html.setAttribute('dir', isRtl ? 'ltr' : 'rtl');
+            localStorage.setItem('dir', isRtl ? 'ltr' : 'rtl');
+        });
+        html.setAttribute('dir', localStorage.getItem('dir') || 'ltr');
+
+        // ── Password visibility toggle ──
+        function togglePassword(inputId, btn) {
+            const input = document.getElementById(inputId);
+            const icon = btn.querySelector('i');
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                input.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        }
+
+        // ── Form submit → redirect to user dashboard ──
+        function handleLogin() {
+            window.location.href = 'userdash.html';
+        }
+
+        // ── Social login demo ──
+        function socialLogin(provider) {
+            console.log('Social login with', provider);
+            window.location.href = 'userdash.html';
+        }
+    </script>
+</body>
+</html>

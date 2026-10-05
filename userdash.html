@@ -1,0 +1,1448 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="assets/fav.png" type="image/jpeg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <title>My Dashboard | LEADCAMP</title>
+
+    <script src="tailwind.js"></script>
+    <style>
+        /* --- Aspirational Leadership Palette (matches index.html) --- */
+        :root, html[data-theme='light'] {
+            --color-background: #FFFFFF;
+            --color-primary-text: #1E3A8A;
+            --color-secondary-text: #475569;
+            --color-accent: #F59E0B;
+            --color-accent-light: #3B82F6;
+            --color-border: #E5E7EB;
+            --color-hover: #EFF6FF;
+            --color-footer-bg: #0F172A;
+            --color-footer-text: #F8FAFC;
+            --color-card-bg: #FFFFFF;
+            --color-success: #10B981;
+            --color-danger: #EF4444;
+        }
+        html[data-theme='dark'] {
+            --color-background: #020617;
+            --color-primary-text: #F8FAFC;
+            --color-secondary-text: #94A3B8;
+            --color-accent: #F59E0B;
+            --color-accent-light: #60A5FA;
+            --color-border: #334155;
+            --color-hover: #1E293B;
+            --color-footer-bg: #020617;
+            --color-footer-text: #F8FAFC;
+            --color-card-bg: #0F172A;
+            --color-success: #059669;
+            --color-danger: #DC2626;
+        }
+
+        body {
+            background-color: var(--color-background);
+            color: var(--color-primary-text);
+            font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+            overflow-x: hidden;
+        }
+
+        .text-primary-text { color: var(--color-primary-text); }
+        .text-secondary-text { color: var(--color-secondary-text); }
+        .text-accent { color: var(--color-accent); }
+        .text-accent-light { color: var(--color-accent-light); }
+        .bg-background { background-color: var(--color-background); }
+        .bg-hover { background-color: var(--color-hover); }
+        .bg-accent { background-color: var(--color-accent); }
+        .border-border { border-color: var(--color-border); }
+        .card-bg { background-color: var(--color-card-bg); }
+
+        h1, h2, h3, h4, h5, h6 { font-weight: 500 !important; }
+        p, .text-secondary-text { font-weight: 400 !important; }
+
+        .bg-custom-gradient {
+            background: linear-gradient(135deg, #F59E0B 0%, #EA580C 100%);
+        }
+        .bg-accent-gradient {
+            background: linear-gradient(135deg, #F59E0B 0%, #EA580C 100%);
+        }
+
+        /* Cards */
+        .dash-card {
+            background-color: var(--color-card-bg);
+            border: 1px solid var(--color-border);
+            border-radius: 1.25rem;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 12px -4px rgba(0, 0, 0, 0.04);
+        }
+        .dash-card:hover {
+            border-color: var(--color-accent);
+            box-shadow: 0 12px 24px -8px rgba(245, 158, 11, 0.12);
+        }
+
+        /* Sidebar Links */
+        .sidebar-link {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1rem;
+            border-radius: 1rem;
+            color: var(--color-secondary-text);
+            transition: all 0.18s ease;
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+            white-space: nowrap;
+            cursor: pointer;
+        }
+        .sidebar-link:hover, .sidebar-link.active {
+            color: #FFFFFF;
+            background: linear-gradient(145deg, #F59E0B, #EA580C);
+        }
+        .sidebar-link:hover svg, .sidebar-link.active svg { stroke: white; }
+        .sidebar-link.logout:hover { background: #d13b3b; color: white; }
+
+        html[dir="rtl"] .sidebar-link { flex-direction: row-reverse; }
+        html[dir="rtl"] .ml-auto { margin-right: auto; margin-left: 0; }
+
+        /* Badges */
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            white-space: nowrap;
+        }
+        .badge-active { background-color: var(--color-success); color: white; }
+        .badge-pending { background-color: #F59E0B; color: white; }
+        .badge-enrolled { background-color: #3B82F6; color: white; }
+        .badge-completed { background-color: var(--color-success); color: white; }
+        .badge-cancelled { background-color: var(--color-danger); color: white; }
+
+        .status-pulse {
+            width: 10px; height: 10px;
+            background-color: var(--color-accent);
+            border-radius: 9999px;
+            box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.5);
+            animation: pulse2 2s infinite;
+        }
+        @keyframes pulse2 {
+            70% { box-shadow: 0 0 0 6px rgba(245, 158, 11, 0); }
+        }
+
+        /* Buttons */
+        .btn-primary, .book-btn {
+            background: linear-gradient(135deg, #F59E0B 0%, #EA580C 100%);
+            color: white;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .btn-primary:hover, .book-btn:hover {
+            opacity: 0.92;
+            transform: translateY(-1px) scale(1.02);
+            box-shadow: 0 6px 18px rgba(245,158,11,0.3);
+        }
+        .btn-outline {
+            background: transparent;
+            color: var(--color-accent);
+            border: 2px solid var(--color-accent);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .btn-outline:hover {
+            background: var(--color-accent);
+            color: white;
+        }
+
+        /* Custom scrollbar */
+        .custom-scrollbar::-webkit-scrollbar { height: 4px; width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: var(--color-border);
+            border-radius: 10px;
+        }
+
+        #mobile-overlay {
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            position: fixed;
+            inset: 0;
+            z-index: 55;
+        }
+        #mobile-overlay.active { opacity: 1; pointer-events: auto; }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(16px);
+            transition: opacity 0.6s cubic-bezier(0.2, 0.9, 0.3, 1), transform 0.6s cubic-bezier(0.2, 0.9, 0.3, 1);
+        }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        .admin-section { display: block; }
+
+        .toggle-switch {
+            width: 48px; height: 24px;
+            border-radius: 9999px;
+            padding: 2px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .toggle-switch.active { background: var(--color-accent); }
+        .toggle-switch.inactive { background: var(--color-border); }
+        .toggle-switch .knob {
+            width: 20px; height: 20px;
+            background: white;
+            border-radius: 9999px;
+            transition: transform 0.2s;
+        }
+        .toggle-switch.active .knob { transform: translateX(24px); }
+        html[dir="rtl"] .toggle-switch.active .knob { transform: translateX(-24px); }
+
+        .progress-bar {
+            height: 8px;
+            border-radius: 4px;
+            background: var(--color-border);
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            border-radius: 4px;
+            background: linear-gradient(90deg, #F59E0B, #EA580C);
+            transition: width 0.3s ease;
+        }
+
+        .timeline-line {
+            position: absolute;
+            left: 19px;
+            top: 40px;
+            bottom: 0;
+            width: 2px;
+            background: var(--color-border);
+        }
+        html[dir="rtl"] .timeline-line { left: auto; right: 19px; }
+
+        .data-table { width: 100%; border-collapse: collapse; }
+        .data-table th {
+            text-align: left;
+            padding: 0.75rem 1rem;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--color-secondary-text);
+            font-weight: 700;
+            border-bottom: 1px solid var(--color-border);
+        }
+        html[dir="rtl"] .data-table th { text-align: right; }
+        .data-table td {
+            padding: 1rem;
+            font-size: 0.875rem;
+            border-bottom: 1px solid var(--color-border);
+        }
+        .data-table tr:last-child td { border-bottom: none; }
+        .data-table tr:hover { background-color: var(--color-hover); }
+    </style>
+</head>
+<body class="antialiased bg-background h-screen overflow-hidden w-full">
+
+    <!-- TOP BAR -->
+    <header class="border-b border-border bg-background sticky top-0 z-50 w-full">
+        <div class="max-w-[1920px] mx-auto px-2 sm:px-6 lg:px-10 py-3 flex items-center justify-between gap-1 sm:gap-3">
+
+            <div class="flex items-center gap-1 sm:gap-3">
+                <button id="mobile-menu-toggle"
+                    class="xl:hidden p-1.5 sm:p-2 -ml-1 sm:-ml-2 rounded-xl hover:bg-hover transition text-primary-text"
+                    title="Open Menu">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+                <a href="index.html" class="flex items-center gap-2 shrink-0 text-2xl font-serif font-extrabold tracking-wide">
+                    <i class="fa-solid fa-microphone-lines" style="color: var(--color-accent);"></i>
+                    <span style="color: var(--color-accent);">LEADCAMP</span>
+                </a>
+            </div>
+
+            <div class="flex items-center gap-1 sm:gap-3 shrink-0 rtl:flex-row-reverse">
+                <div class="hidden md:flex items-center bg-hover rounded-full px-4 py-2 border border-border">
+                    <i class="fas fa-search text-secondary-text text-sm mr-2"></i>
+                    <input type="text" placeholder="Search sessions, certificates..." class="bg-transparent border-none outline-none text-sm w-40 lg:w-56 text-primary-text placeholder-secondary-text/50">
+                </div>
+
+                <button id="lang-toggle" class="p-1.5 sm:p-2 rounded-full hover:bg-hover transition text-primary-text" title="Toggle RTL/LTR">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7.5 21 3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5" />
+                    </svg>
+                </button>
+
+                <button id="theme-toggle-user" class="p-1.5 sm:p-2 rounded-full hover:bg-hover transition text-primary-text">
+                    <svg class="w-5 h-5 light-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                    </svg>
+                    <svg class="w-5 h-5 dark-icon hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                    </svg>
+                </button>
+
+                <div class="relative">
+                    <button class="p-1.5 sm:p-2 rounded-full hover:bg-hover transition text-primary-text relative">
+                        <i class="fas fa-bell"></i>
+                        <span class="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+                    </button>
+                </div>
+
+                <div class="relative flex items-center gap-1.5 sm:gap-2 pl-1.5 sm:pl-3 border-l border-border rtl:border-l-0 rtl:border-r min-w-0">
+                    <div class="relative flex-shrink-0">
+                        <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-accent/10 border border-accent flex items-center justify-center text-accent font-semibold">
+                            <i class="fas fa-user text-xs"></i>
+                        </div>
+                        <span class="absolute bottom-0 right-0 status-pulse"></span>
+                    </div>
+                    <div class="hidden sm:block text-sm">
+                        <p class="font-semibold leading-none">Sarah Mitchell</p>
+                        <p class="text-[10px] text-secondary-text mt-1 uppercase tracking-widest font-semibold">Parent Account</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div id="mobile-overlay" class="xl:hidden"></div>
+
+    <!-- MAIN LAYOUT -->
+    <main class="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-10 py-6 h-[calc(100vh-64px)] w-full relative">
+        <div class="flex flex-col xl:flex-row gap-4 lg:gap-6 xl:gap-10 h-full">
+
+            <!-- SIDEBAR -->
+            <aside id="sidebar-container"
+                class="fixed xl:static top-0 left-0 rtl:right-0 rtl:left-auto h-full xl:h-auto w-72 lg:w-72 xl:w-80 z-[60] xl:z-10 transform -translate-x-full rtl:translate-x-full xl:translate-x-0 xl:rtl:translate-x-0 transition-transform duration-300 ease-in-out bg-background xl:bg-transparent flex-shrink-0">
+                <div class="dash-card p-5 h-full overflow-y-auto custom-scrollbar border-r xl:border border-border xl:rounded-[1.25rem] rounded-none shadow-none xl:shadow-md">
+
+                    <div class="flex xl:hidden justify-between items-center mb-6 px-2">
+                        <div class="flex items-center gap-2 text-accent">
+                            <i class="fas fa-bars-staggered"></i>
+                            <span class="text-xs font-medium uppercase tracking-widest">Parent Menu</span>
+                        </div>
+                        <button id="close-sidebar" class="p-2 hover:bg-hover rounded-lg text-primary-text">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+
+                    <div class="flex xl:hidden items-center gap-3 mb-6 px-2 pb-6 border-b border-border">
+                        <div class="relative flex-shrink-0">
+                            <div class="w-10 h-10 rounded-full bg-accent/10 border border-accent flex items-center justify-center text-accent font-semibold">
+                                <i class="fas fa-user text-sm"></i>
+                            </div>
+                            <span class="absolute bottom-0 right-0 status-pulse"></span>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-primary-text leading-tight">Sarah Mitchell</p>
+                            <p class="text-[10px] text-secondary-text mt-0.5 uppercase tracking-widest font-medium">Parent Account</p>
+                        </div>
+                    </div>
+
+                    <nav class="flex flex-col gap-1">
+                        <p class="text-[10px] uppercase tracking-widest text-secondary-text font-medium mt-2 mb-2 px-2">My Family</p>
+                        <a href="#" onclick="activateSection('overview'); return false;" data-section="overview" class="sidebar-link active">
+                            <i class="fas fa-house-chimney w-5"></i>
+                            <span>Dashboard Home</span>
+                        </a>
+                        <a href="#" onclick="activateSection('children'); return false;" data-section="children" class="sidebar-link">
+                            <i class="fas fa-children w-5"></i>
+                            <span>My Children</span>
+                        </a>
+
+                        <p class="text-[10px] uppercase tracking-widest text-secondary-text font-medium mt-4 mb-2 px-2">Camp</p>
+                        <a href="#" onclick="activateSection('sessions'); return false;" data-section="sessions" class="sidebar-link">
+                            <i class="fas fa-campground w-5"></i>
+                            <span>Camp Sessions</span>
+                            <span class="ml-auto bg-accent/20 text-accent text-[10px] font-semibold px-1.5 py-0.5 rounded-full">3</span>
+                        </a>
+                        <a href="#" onclick="activateSection('progress'); return false;" data-section="progress" class="sidebar-link">
+                            <i class="fas fa-chart-line w-5"></i>
+                            <span>Skill Progress</span>
+                        </a>
+
+                        <p class="text-[10px] uppercase tracking-widest text-secondary-text font-medium mt-4 mb-2 px-2">Achievements</p>
+                        <a href="#" onclick="activateSection('certificates'); return false;" data-section="certificates" class="sidebar-link">
+                            <i class="fas fa-certificate w-5"></i>
+                            <span>Certificates</span>
+                        </a>
+                        <a href="#" onclick="activateSection('payments'); return false;" data-section="payments" class="sidebar-link">
+                            <i class="fas fa-credit-card w-5"></i>
+                            <span>Payments</span>
+                        </a>
+
+                        <p class="text-[10px] uppercase tracking-widest text-secondary-text font-medium mt-4 mb-2 px-2">Account</p>
+                        <a href="#" onclick="activateSection('support'); return false;" data-section="support" class="sidebar-link">
+                            <i class="fas fa-headset w-5"></i>
+                            <span>Help & Support</span>
+                        </a>
+                        <a href="#" onclick="activateSection('settings'); return false;" data-section="settings" class="sidebar-link">
+                            <i class="fas fa-sliders w-5"></i>
+                            <span>Settings</span>
+                        </a>
+                        <a href="#" onclick="activateSection('logout'); return false;" class="sidebar-link logout mt-2 text-red-500">
+                            <i class="fas fa-power-off w-5"></i>
+                            <span>Log Out</span>
+                        </a>
+                    </nav>
+
+                    <div class="mt-8 pt-4 border-t border-border">
+                        <p class="text-[10px] uppercase tracking-widest text-secondary-text font-medium mb-3 px-1">Next Session</p>
+                        <div class="bg-hover rounded-xl p-3">
+                            <div class="flex items-center gap-2 mb-2">
+                                <div class="w-2 h-2 rounded-full bg-green-500"></div>
+                                <span class="text-xs font-semibold">Confirmed</span>
+                            </div>
+                            <p class="text-xs font-semibold text-primary-text">Summer Public Speaking Camp</p>
+                            <p class="text-[11px] text-secondary-text mt-1">Jun 15 – Jun 19, 2026</p>
+                            <div class="flex items-center gap-2 mt-2 pt-2 border-t border-border">
+                                <div class="w-6 h-6 rounded-full bg-accent/10 flex items-center justify-center">
+                                    <i class="fas fa-user text-accent text-[10px]"></i>
+                                </div>
+                                <span class="text-[11px] text-secondary-text">For <strong class="text-primary-text">Emma</strong></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- CONTENT AREA -->
+            <div class="flex-1 min-w-0 overflow-y-auto custom-scrollbar pr-2">
+
+                <!-- ==================== OVERVIEW ==================== -->
+                <div id="overview" class="admin-section">
+                    <div class="dash-card p-5 sm:p-7 reveal active mb-6 bg-accent-gradient text-white">
+                        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                            <div>
+                                <h2 class="text-2xl sm:text-3xl font-semibold mb-2">Welcome back, Sarah 🌟</h2>
+                                <p class="text-white/85 text-sm max-w-xl">Emma's Summer Public Speaking Camp is confirmed for June 15-19. She has completed 3 of 8 skill modules so far.</p>
+                            </div>
+                            <div class="flex gap-2 flex-wrap">
+                                <span class="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider">Apr 09, 2026</span>
+                                <span class="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider flex items-center gap-1">
+                                    <i class="fas fa-circle text-[6px]"></i> Parent Account
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Stats Grid -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 mb-6">
+                        <div class="dash-card p-6 reveal">
+                            <div class="flex justify-between items-start gap-4">
+                                <div>
+                                    <p class="text-secondary-text text-xs uppercase tracking-wider font-medium">Enrolled Children</p>
+                                    <p class="text-3xl font-semibold mt-2">2</p>
+                                    <p class="text-accent text-xs font-medium mt-2 flex items-center gap-1">
+                                        <i class="fas fa-arrow-up"></i> Both active
+                                    </p>
+                                </div>
+                                <div class="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center shrink-0">
+                                    <i class="fas fa-children text-accent text-xl"></i>
+                                </div>
+                            </div>
+                            <div class="mt-4 pt-4 border-t border-border flex gap-4 text-xs">
+                                <span><span class="font-semibold">1</span> <span class="text-secondary-text">active camp</span></span>
+                                <span><span class="font-semibold">1</span> <span class="text-secondary-text">upcoming</span></span>
+                            </div>
+                        </div>
+
+                        <div class="dash-card p-6 reveal">
+                            <div class="flex justify-between items-start gap-4">
+                                <div>
+                                    <p class="text-secondary-text text-xs uppercase tracking-wider font-medium">Skills Mastered</p>
+                                    <p class="text-3xl font-semibold mt-2">7</p>
+                                    <p class="text-accent text-xs font-medium mt-2 flex items-center gap-1">
+                                        <i class="fas fa-arrow-up"></i> +2 this month
+                                    </p>
+                                </div>
+                                <div class="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center shrink-0">
+                                    <i class="fas fa-brain text-accent text-xl"></i>
+                                </div>
+                            </div>
+                            <div class="mt-4 pt-4 border-t border-border flex gap-4 text-xs">
+                                <span><span class="font-semibold">5</span> <span class="text-secondary-text">Emma</span></span>
+                                <span><span class="font-semibold">2</span> <span class="text-secondary-text">Liam</span></span>
+                            </div>
+                        </div>
+
+                        <div class="dash-card p-6 reveal">
+                            <div class="flex justify-between items-start gap-4">
+                                <div>
+                                    <p class="text-secondary-text text-xs uppercase tracking-wider font-medium">Certificates Earned</p>
+                                    <p class="text-3xl font-semibold mt-2">3</p>
+                                    <p class="text-accent text-xs font-medium mt-2 flex items-center gap-1">
+                                        <i class="fas fa-award"></i> Latest: Mar 2026
+                                    </p>
+                                </div>
+                                <div class="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center shrink-0">
+                                    <i class="fas fa-certificate text-accent text-xl"></i>
+                                </div>
+                            </div>
+                            <div class="mt-4 pt-4 border-t border-border flex gap-4 text-xs">
+                                <span><span class="font-semibold">2</span> <span class="text-secondary-text">public speaking</span></span>
+                                <span><span class="font-semibold">1</span> <span class="text-secondary-text">leadership</span></span>
+                            </div>
+                        </div>
+
+                        <div class="dash-card p-6 reveal">
+                            <div class="flex justify-between items-start gap-4">
+                                <div>
+                                    <p class="text-secondary-text text-xs uppercase tracking-wider font-medium">Next Payment</p>
+                                    <p class="text-3xl font-semibold mt-2">$450</p>
+                                    <p class="text-secondary-text text-xs font-medium mt-2 flex items-center gap-1">
+                                        <i class="fas fa-clock"></i> Due May 15
+                                    </p>
+                                </div>
+                                <div class="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center shrink-0">
+                                    <i class="fas fa-receipt text-accent text-xl"></i>
+                                </div>
+                            </div>
+                            <div class="mt-4 pt-4 border-t border-border flex gap-4 text-xs">
+                                <span><span class="font-semibold">$1,200</span> <span class="text-secondary-text">paid</span></span>
+                                <span><span class="font-semibold">$450</span> <span class="text-secondary-text">due</span></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Progress + Activity -->
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+                        <div class="dash-card p-6 lg:col-span-2 reveal">
+                            <div class="flex justify-between items-center mb-6">
+                                <h3 class="font-semibold text-lg">Skill Development — Emma</h3>
+                                <select class="bg-hover border border-border rounded-full px-4 py-2 text-xs font-medium">
+                                    <option>Emma (Age 13)</option>
+                                    <option>Liam (Age 10)</option>
+                                </select>
+                            </div>
+
+                            <div class="space-y-5">
+                                <div>
+                                    <div class="flex justify-between text-sm mb-2">
+                                        <span class="font-medium">Public Speaking</span>
+                                        <span class="font-semibold text-accent">78%</span>
+                                    </div>
+                                    <div class="progress-bar"><div class="progress-fill" style="width: 78%"></div></div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between text-sm mb-2">
+                                        <span class="font-medium">Confidence & Presence</span>
+                                        <span class="font-semibold text-accent">65%</span>
+                                    </div>
+                                    <div class="progress-bar"><div class="progress-fill" style="width: 65%"></div></div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between text-sm mb-2">
+                                        <span class="font-medium">Leadership & Teamwork</span>
+                                        <span class="font-semibold text-accent">82%</span>
+                                    </div>
+                                    <div class="progress-bar"><div class="progress-fill" style="width: 82%"></div></div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between text-sm mb-2">
+                                        <span class="font-medium">Storytelling & Narrative</span>
+                                        <span class="font-semibold text-accent">71%</span>
+                                    </div>
+                                    <div class="progress-bar"><div class="progress-fill" style="width: 71%"></div></div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between text-sm mb-2">
+                                        <span class="font-medium">Critical Thinking</span>
+                                        <span class="font-semibold text-accent">58%</span>
+                                    </div>
+                                    <div class="progress-bar"><div class="progress-fill" style="width: 58%"></div></div>
+                                </div>
+                            </div>
+
+                            <div class="mt-6 pt-4 border-t border-border flex justify-between flex-wrap gap-3">
+                                <span class="text-secondary-text text-sm">Overall Camp Progress</span>
+                                <span class="font-semibold text-xl text-accent">71%</span>
+                            </div>
+                        </div>
+
+                        <div class="dash-card p-6 reveal">
+                            <h3 class="font-semibold text-lg mb-4">Recent Activity</h3>
+                            <div class="space-y-4">
+                                <div class="flex items-start gap-3">
+                                    <div class="w-8 h-8 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center flex-shrink-0">
+                                        <i class="fas fa-check text-green-600 text-xs"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm font-semibold">Module completed</p>
+                                        <p class="text-xs text-secondary-text">Emma · Storytelling Basics · 2h ago</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-3">
+                                    <div class="w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center flex-shrink-0">
+                                        <i class="fas fa-certificate text-blue-600 text-xs"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm font-semibold">Certificate earned</p>
+                                        <p class="text-xs text-secondary-text">Liam · Beginner Speaking · Yesterday</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-3">
+                                    <div class="w-8 h-8 rounded-full bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center flex-shrink-0">
+                                        <i class="fas fa-star text-amber-600 text-xs"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm font-semibold">Instructor feedback</p>
+                                        <p class="text-xs text-secondary-text">"Emma showed great improvement" · 2 days ago</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-3">
+                                    <div class="w-8 h-8 rounded-full bg-pink-100 dark:bg-pink-900/30 flex items-center justify-center flex-shrink-0">
+                                        <i class="fas fa-calendar-plus text-pink-600 text-xs"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm font-semibold">Session booked</p>
+                                        <p class="text-xs text-secondary-text">Summer Camp Jun 15-19 · 3 days ago</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="w-full mt-6 py-3 text-xs font-semibold uppercase tracking-wider text-accent border border-accent/20 rounded-xl hover:bg-accent/5 transition">
+                                View All Activity
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Upcoming Sessions -->
+                    <div class="dash-card p-6 reveal">
+                        <div class="flex justify-between items-center mb-5">
+                            <h3 class="font-semibold text-lg">Upcoming Camp Sessions</h3>
+                            <button onclick="activateSection('sessions'); return false;" class="text-xs text-accent font-semibold hover:underline">View All</button>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                            <div class="rounded-2xl overflow-hidden border border-border">
+                                <div class="h-28 overflow-hidden">
+                                    <img src="https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=500&q=80" alt="Public Speaking" class="w-full h-full object-cover">
+                                </div>
+                                <div class="p-4">
+                                    <span class="badge-active text-[10px]">Confirmed</span>
+                                    <h4 class="font-semibold text-sm mt-2">Summer Public Speaking Camp</h4>
+                                    <p class="text-xs text-secondary-text mt-1">Jun 15-19, 2026 · Age 11-14</p>
+                                    <div class="flex justify-between items-center mt-3 pt-3 border-t border-border">
+                                        <span class="text-xs text-secondary-text">For: Emma</span>
+                                        <span class="text-accent font-bold text-sm">$450</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="rounded-2xl overflow-hidden border border-border">
+                                <div class="h-28 overflow-hidden">
+                                    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=500&q=80" alt="Leadership" class="w-full h-full object-cover">
+                                </div>
+                                <div class="p-4">
+                                    <span class="badge-pending text-[10px]">Awaiting Payment</span>
+                                    <h4 class="font-semibold text-sm mt-2">Junior Leadership Camp</h4>
+                                    <p class="text-xs text-secondary-text mt-1">Jul 06-10, 2026 · Age 8-10</p>
+                                    <div class="flex justify-between items-center mt-3 pt-3 border-t border-border">
+                                        <span class="text-xs text-secondary-text">For: Liam</span>
+                                        <span class="text-accent font-bold text-sm">$380</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="rounded-2xl overflow-hidden border border-border">
+                                <div class="h-28 overflow-hidden">
+                                    <img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?w=500&q=80" alt="Team Building" class="w-full h-full object-cover">
+                                </div>
+                                <div class="p-4">
+                                    <span class="badge-enrolled text-[10px]">Waitlist</span>
+                                    <h4 class="font-semibold text-sm mt-2">Debate & Critical Thinking</h4>
+                                    <p class="text-xs text-secondary-text mt-1">Aug 10-14, 2026 · Age 12-16</p>
+                                    <div class="flex justify-between items-center mt-3 pt-3 border-t border-border">
+                                        <span class="text-xs text-secondary-text">For: Emma</span>
+                                        <span class="text-accent font-bold text-sm">$500</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ==================== MY CHILDREN ==================== -->
+                <div id="children" class="admin-section hidden">
+                    <div class="dash-card p-5 sm:p-7 reveal active">
+                        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
+                            <h2 class="text-xl sm:text-2xl font-semibold text-primary-text flex items-center gap-2">
+                                <i class="fas fa-children text-accent"></i> My Children
+                            </h2>
+                            <button class="px-6 py-3 bg-accent-gradient text-white rounded-full text-xs font-semibold uppercase tracking-widest shadow-lg">
+                                <i class="fas fa-plus mr-1"></i> Enroll Another Child
+                            </button>
+                        </div>
+
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="dash-card p-6">
+                                <div class="flex items-start gap-4 mb-4">
+                                    <div class="w-16 h-16 rounded-full bg-accent/10 border-2 border-accent flex items-center justify-center text-accent text-2xl font-semibold shrink-0">E</div>
+                                    <div class="flex-1">
+                                        <h3 class="font-semibold text-lg">Emma Mitchell</h3>
+                                        <p class="text-xs text-secondary-text">Age 13 · 8th Grade</p>
+                                        <div class="flex gap-2 mt-2 flex-wrap">
+                                            <span class="text-[10px] bg-accent/10 text-accent px-2 py-0.5 rounded-full font-semibold">Public Speaking</span>
+                                            <span class="text-[10px] bg-blue-100 dark:bg-blue-900/30 text-blue-600 px-2 py-0.5 rounded-full font-semibold">Leadership</span>
+                                        </div>
+                                    </div>
+                                    <span class="badge-active text-[10px]">Active</span>
+                                </div>
+                                <div class="space-y-2 text-sm border-t border-border pt-4">
+                                    <div class="flex justify-between"><span class="text-secondary-text">Current camp</span><span class="font-medium text-right">Summer Public Speaking</span></div>
+                                    <div class="flex justify-between"><span class="text-secondary-text">Camp dates</span><span class="font-medium text-right">Jun 15-19, 2026</span></div>
+                                    <div class="flex justify-between"><span class="text-secondary-text">Instructor</span><span class="font-medium text-right text-accent">Coach Davis</span></div>
+                                    <div class="flex justify-between"><span class="text-secondary-text">Skills mastered</span><span class="font-medium text-right">5 of 8</span></div>
+                                </div>
+                                <div class="flex gap-3 mt-5">
+                                    <button onclick="activateSection('progress'); return false;" class="flex-1 py-2 bg-accent-gradient text-white rounded-full text-xs font-semibold">View Progress</button>
+                                    <button class="px-4 py-2 border border-border rounded-full text-xs font-semibold hover:bg-hover"><i class="fas fa-pen"></i></button>
+                                </div>
+                            </div>
+
+                            <div class="dash-card p-6">
+                                <div class="flex items-start gap-4 mb-4">
+                                    <div class="w-16 h-16 rounded-full bg-blue-100 dark:bg-blue-900/30 border-2 border-blue-500 flex items-center justify-center text-blue-500 text-2xl font-semibold shrink-0">L</div>
+                                    <div class="flex-1">
+                                        <h3 class="font-semibold text-lg">Liam Mitchell</h3>
+                                        <p class="text-xs text-secondary-text">Age 10 · 5th Grade</p>
+                                        <div class="flex gap-2 mt-2 flex-wrap">
+                                            <span class="text-[10px] bg-accent/10 text-accent px-2 py-0.5 rounded-full font-semibold">Junior Speaking</span>
+                                        </div>
+                                    </div>
+                                    <span class="badge-pending text-[10px]">Awaiting Payment</span>
+                                </div>
+                                <div class="space-y-2 text-sm border-t border-border pt-4">
+                                    <div class="flex justify-between"><span class="text-secondary-text">Next camp</span><span class="font-medium text-right">Junior Leadership</span></div>
+                                    <div class="flex justify-between"><span class="text-secondary-text">Camp dates</span><span class="font-medium text-right">Jul 06-10, 2026</span></div>
+                                    <div class="flex justify-between"><span class="text-secondary-text">Instructor</span><span class="font-medium text-right text-accent">Coach Rivera</span></div>
+                                    <div class="flex justify-between"><span class="text-secondary-text">Skills mastered</span><span class="font-medium text-right">2 of 8</span></div>
+                                </div>
+                                <div class="flex gap-3 mt-5">
+                                    <button class="flex-1 py-2 bg-accent-gradient text-white rounded-full text-xs font-semibold">Complete Payment</button>
+                                    <button class="px-4 py-2 border border-border rounded-full text-xs font-semibold hover:bg-hover"><i class="fas fa-pen"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ==================== CAMP SESSIONS ==================== -->
+                <div id="sessions" class="admin-section hidden">
+                    <div class="dash-card p-5 sm:p-7 reveal active">
+                        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
+                            <h2 class="text-xl sm:text-2xl font-semibold text-primary-text flex items-center gap-2">
+                                <i class="fas fa-campground text-accent"></i> Camp Sessions
+                            </h2>
+                            <div class="flex gap-2">
+                                <button class="px-5 py-2.5 border border-border rounded-full text-xs font-medium hover:bg-hover">
+                                    <i class="fas fa-filter mr-1"></i> Filter
+                                </button>
+                                <button class="px-5 py-2.5 bg-accent-gradient text-white rounded-full text-xs font-semibold uppercase tracking-widest shadow-md">
+                                    <i class="fas fa-plus mr-1"></i> Book Session
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
+                            <div class="bg-hover rounded-2xl p-4 text-center">
+                                <p class="text-2xl font-semibold text-accent">2</p>
+                                <p class="text-[10px] text-secondary-text uppercase tracking-wider mt-1">Confirmed</p>
+                            </div>
+                            <div class="bg-hover rounded-2xl p-4 text-center">
+                                <p class="text-2xl font-semibold text-accent">1</p>
+                                <p class="text-[10px] text-secondary-text uppercase tracking-wider mt-1">Awaiting Pay</p>
+                            </div>
+                            <div class="bg-hover rounded-2xl p-4 text-center">
+                                <p class="text-2xl font-semibold text-accent">1</p>
+                                <p class="text-[10px] text-secondary-text uppercase tracking-wider mt-1">Waitlist</p>
+                            </div>
+                            <div class="bg-hover rounded-2xl p-4 text-center">
+                                <p class="text-2xl font-semibold text-accent">4</p>
+                                <p class="text-[10px] text-secondary-text uppercase tracking-wider mt-1">Completed</p>
+                            </div>
+                        </div>
+
+                        <h3 class="font-semibold text-lg mb-4">Active & Upcoming</h3>
+                        <div class="space-y-4 mb-8">
+                            <div class="dash-card p-4 flex flex-col sm:flex-row gap-4">
+                                <img src="https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=400&q=80" alt="Summer Camp" class="w-full sm:w-36 h-24 rounded-xl object-cover">
+                                <div class="flex-1">
+                                    <div class="flex items-center gap-2 flex-wrap mb-1">
+                                        <p class="font-semibold text-sm">Summer Public Speaking Camp</p>
+                                        <span class="badge-active text-[10px]">Confirmed</span>
+                                    </div>
+                                    <p class="text-xs text-secondary-text mt-1"><i class="fas fa-calendar mr-1"></i> Jun 15-19, 2026 · 5 days · Age 11-14</p>
+                                    <p class="text-xs text-secondary-text mt-1"><i class="fas fa-user mr-1"></i> Emma Mitchell · Coach Davis</p>
+                                    <div class="flex justify-between items-center mt-3 flex-wrap gap-2">
+                                        <span class="font-semibold text-accent">$450</span>
+                                        <div class="flex gap-2">
+                                            <button class="px-3 py-1.5 border border-border rounded-full text-xs font-semibold hover:bg-hover">Details</button>
+                                            <button class="px-3 py-1.5 border border-border rounded-full text-xs font-semibold hover:bg-hover">Cancel</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="dash-card p-4 flex flex-col sm:flex-row gap-4">
+                                <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=400&q=80" alt="Junior Camp" class="w-full sm:w-36 h-24 rounded-xl object-cover">
+                                <div class="flex-1">
+                                    <div class="flex items-center gap-2 flex-wrap mb-1">
+                                        <p class="font-semibold text-sm">Junior Leadership Camp</p>
+                                        <span class="badge-pending text-[10px]">Awaiting Payment</span>
+                                    </div>
+                                    <p class="text-xs text-secondary-text mt-1"><i class="fas fa-calendar mr-1"></i> Jul 06-10, 2026 · 5 days · Age 8-10</p>
+                                    <p class="text-xs text-secondary-text mt-1"><i class="fas fa-user mr-1"></i> Liam Mitchell · Coach Rivera</p>
+                                    <div class="flex justify-between items-center mt-3 flex-wrap gap-2">
+                                        <span class="font-semibold text-accent">$380</span>
+                                        <button class="px-3 py-1.5 bg-accent-gradient text-white rounded-full text-xs font-semibold">Pay Now</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="dash-card p-4 flex flex-col sm:flex-row gap-4 border-amber-500/40">
+                                <img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?w=400&q=80" alt="Debate Camp" class="w-full sm:w-36 h-24 rounded-xl object-cover">
+                                <div class="flex-1">
+                                    <div class="flex items-center gap-2 flex-wrap mb-1">
+                                        <p class="font-semibold text-sm">Debate & Critical Thinking Camp</p>
+                                        <span class="badge-enrolled text-[10px]">Waitlist · Position #3</span>
+                                    </div>
+                                    <p class="text-xs text-secondary-text mt-1"><i class="fas fa-calendar mr-1"></i> Aug 10-14, 2026 · 5 days · Age 12-16</p>
+                                    <p class="text-xs text-secondary-text mt-1"><i class="fas fa-user mr-1"></i> Emma Mitchell · Coach Thompson</p>
+                                    <div class="flex justify-between items-center mt-3 flex-wrap gap-2">
+                                        <span class="font-semibold text-accent">$500</span>
+                                        <button class="px-3 py-1.5 border border-border rounded-full text-xs font-semibold hover:bg-hover">Leave Waitlist</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3 class="font-semibold text-lg mb-4">Completed Sessions</h3>
+                        <div class="space-y-2">
+                            <div class="flex items-center justify-between p-3 bg-hover rounded-xl text-sm">
+                                <div>
+                                    <p class="font-semibold text-xs">Spring Public Speaking Camp</p>
+                                    <p class="text-[11px] text-secondary-text mt-0.5">Mar 18-22, 2026 · Emma</p>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <span class="badge-completed text-[10px]">Completed</span>
+                                    <span class="text-xs font-semibold">$420</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between p-3 bg-hover rounded-xl text-sm">
+                                <div>
+                                    <p class="font-semibold text-xs">Beginner Speaking Camp</p>
+                                    <p class="text-[11px] text-secondary-text mt-0.5">Feb 12-16, 2026 · Liam</p>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <span class="badge-completed text-[10px]">Completed</span>
+                                    <span class="text-xs font-semibold">$350</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between p-3 bg-hover rounded-xl text-sm">
+                                <div>
+                                    <p class="font-semibold text-xs">Winter Storytelling Camp</p>
+                                    <p class="text-[11px] text-secondary-text mt-0.5">Dec 18-22, 2025 · Emma</p>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <span class="badge-completed text-[10px]">Completed</span>
+                                    <span class="text-xs font-semibold">$400</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ==================== SKILL PROGRESS ==================== -->
+                <div id="progress" class="admin-section hidden">
+                    <div class="dash-card p-5 sm:p-7 reveal active">
+                        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
+                            <h2 class="text-xl sm:text-2xl font-semibold text-primary-text flex items-center gap-2">
+                                <i class="fas fa-chart-line text-accent"></i> Skill Development
+                            </h2>
+                            <select class="bg-hover border border-border rounded-full px-4 py-2 text-xs font-medium">
+                                <option>Emma (Age 13)</option>
+                                <option>Liam (Age 10)</option>
+                            </select>
+                        </div>
+
+                        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                            <div class="dash-card p-5">
+                                <div class="flex items-center gap-3 mb-3">
+                                    <i class="fas fa-microphone text-accent text-xl"></i>
+                                    <p class="font-semibold text-sm">Public Speaking</p>
+                                </div>
+                                <p class="text-3xl font-semibold text-accent">78%</p>
+                                <div class="progress-bar mt-3"><div class="progress-fill" style="width: 78%"></div></div>
+                                <p class="text-xs text-secondary-text mt-2">✓ Module 6 of 8 complete</p>
+                            </div>
+
+                            <div class="dash-card p-5">
+                                <div class="flex items-center gap-3 mb-3">
+                                    <i class="fas fa-brain text-accent text-xl"></i>
+                                    <p class="font-semibold text-sm">Critical Thinking</p>
+                                </div>
+                                <p class="text-3xl font-semibold text-accent">58%</p>
+                                <div class="progress-bar mt-3"><div class="progress-fill" style="width: 58%"></div></div>
+                                <p class="text-xs text-secondary-text mt-2">Working on Module 5</p>
+                            </div>
+
+                            <div class="dash-card p-5">
+                                <div class="flex items-center gap-3 mb-3">
+                                    <i class="fas fa-users text-accent text-xl"></i>
+                                    <p class="font-semibold text-sm">Leadership & Teamwork</p>
+                                </div>
+                                <p class="text-3xl font-semibold text-accent">82%</p>
+                                <div class="progress-bar mt-3"><div class="progress-fill" style="width: 82%"></div></div>
+                                <p class="text-xs text-secondary-text mt-2">✓ Module 7 of 8 complete</p>
+                            </div>
+
+                            <div class="dash-card p-5">
+                                <div class="flex items-center gap-3 mb-3">
+                                    <i class="fas fa-book-open text-accent text-xl"></i>
+                                    <p class="font-semibold text-sm">Storytelling & Narrative</p>
+                                </div>
+                                <p class="text-3xl font-semibold text-accent">71%</p>
+                                <div class="progress-bar mt-3"><div class="progress-fill" style="width: 71%"></div></div>
+                                <p class="text-xs text-secondary-text mt-2">✓ Module 5 of 7 complete</p>
+                            </div>
+
+                            <div class="dash-card p-5">
+                                <div class="flex items-center gap-3 mb-3">
+                                    <i class="fas fa-shield-halved text-accent text-xl"></i>
+                                    <p class="font-semibold text-sm">Confidence & Presence</p>
+                                </div>
+                                <p class="text-3xl font-semibold text-accent">65%</p>
+                                <div class="progress-bar mt-3"><div class="progress-fill" style="width: 65%"></div></div>
+                                <p class="text-xs text-secondary-text mt-2">Working on Module 5</p>
+                            </div>
+
+                            <div class="dash-card p-5">
+                                <div class="flex items-center gap-3 mb-3">
+                                    <i class="fas fa-people-arrows text-accent text-xl"></i>
+                                    <p class="font-semibold text-sm">Collaboration</p>
+                                </div>
+                                <p class="text-3xl font-semibold text-accent">88%</p>
+                                <div class="progress-bar mt-3"><div class="progress-fill" style="width: 88%"></div></div>
+                                <p class="text-xs text-secondary-text mt-2">✓ Module 7 of 8 complete</p>
+                            </div>
+                        </div>
+
+                        <h3 class="font-semibold text-lg mb-4">Recent Instructor Feedback</h3>
+                        <div class="space-y-3">
+                            <div class="p-4 bg-hover rounded-2xl">
+                                <div class="flex items-start gap-3">
+                                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&q=80" alt="Coach Davis" class="w-10 h-10 rounded-full object-cover">
+                                    <div class="flex-1">
+                                        <div class="flex justify-between items-start flex-wrap gap-2">
+                                            <p class="font-semibold text-sm">Coach Davis</p>
+                                            <span class="text-xs text-secondary-text">2 days ago</span>
+                                        </div>
+                                        <p class="text-sm text-secondary-text mt-2 italic">"Emma showed remarkable growth in her delivery this week. Her confidence on stage has truly transformed — she's ready for the graduation showcase."</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-4 bg-hover rounded-2xl">
+                                <div class="flex items-start gap-3">
+                                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=100&q=80" alt="Coach Rivera" class="w-10 h-10 rounded-full object-cover">
+                                    <div class="flex-1">
+                                        <div class="flex justify-between items-start flex-wrap gap-2">
+                                            <p class="font-semibold text-sm">Coach Rivera</p>
+                                            <span class="text-xs text-secondary-text">5 days ago</span>
+                                        </div>
+                                        <p class="text-sm text-secondary-text mt-2 italic">"Emma participated actively in group exercises and helped a younger camper with their speech. Great leadership instincts!"</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ==================== CERTIFICATES ==================== -->
+                <div id="certificates" class="admin-section hidden">
+                    <div class="dash-card p-5 sm:p-7 reveal active">
+                        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
+                            <h2 class="text-xl sm:text-2xl font-semibold text-primary-text flex items-center gap-2">
+                                <i class="fas fa-certificate text-accent"></i> Certificates
+                            </h2>
+                            <button class="px-5 py-2.5 border border-border rounded-full text-xs font-medium hover:bg-hover">
+                                <i class="fas fa-download mr-1"></i> Download All
+                            </button>
+                        </div>
+
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="dash-card p-6 border-accent/30 bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-950/20 dark:to-orange-950/20">
+                                <div class="flex items-start justify-between mb-4">
+                                    <div class="w-14 h-14 rounded-full bg-custom-gradient flex items-center justify-center text-white">
+                                        <i class="fas fa-certificate text-2xl"></i>
+                                    </div>
+                                    <span class="badge-completed text-[10px]">Verified</span>
+                                </div>
+                                <h3 class="font-semibold text-base">Public Speaking Certificate</h3>
+                                <p class="text-xs text-secondary-text mt-2">Awarded to <strong>Emma Mitchell</strong></p>
+                                <p class="text-xs text-secondary-text mt-1">Spring Public Speaking Camp · Mar 2026</p>
+                                <div class="flex justify-between items-center mt-5 pt-4 border-t border-border">
+                                    <span class="text-xs text-secondary-text">ID: LC-2026-EM-0342</span>
+                                    <button class="text-accent text-xs font-semibold hover:underline"><i class="fas fa-download mr-1"></i> Download PDF</button>
+                                </div>
+                            </div>
+
+                            <div class="dash-card p-6 border-accent/30 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-950/20 dark:to-indigo-950/20">
+                                <div class="flex items-start justify-between mb-4">
+                                    <div class="w-14 h-14 rounded-full bg-accent-light flex items-center justify-center text-white" style="background: linear-gradient(135deg, #3B82F6, #1E40AF);">
+                                        <i class="fas fa-award text-2xl"></i>
+                                    </div>
+                                    <span class="badge-completed text-[10px]">Verified</span>
+                                </div>
+                                <h3 class="font-semibold text-base">Leadership Excellence Award</h3>
+                                <p class="text-xs text-secondary-text mt-2">Awarded to <strong>Emma Mitchell</strong></p>
+                                <p class="text-xs text-secondary-text mt-1">Spring Public Speaking Camp · Mar 2026</p>
+                                <div class="flex justify-between items-center mt-5 pt-4 border-t border-border">
+                                    <span class="text-xs text-secondary-text">ID: LC-2026-EM-0418</span>
+                                    <button class="text-accent text-xs font-semibold hover:underline"><i class="fas fa-download mr-1"></i> Download PDF</button>
+                                </div>
+                            </div>
+
+                            <div class="dash-card p-6 border-accent/30 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-950/20 dark:to-emerald-950/20">
+                                <div class="flex items-start justify-between mb-4">
+                                    <div class="w-14 h-14 rounded-full flex items-center justify-center text-white" style="background: linear-gradient(135deg, #10B981, #059669);">
+                                        <i class="fas fa-star text-2xl"></i>
+                                    </div>
+                                    <span class="badge-completed text-[10px]">Verified</span>
+                                </div>
+                                <h3 class="font-semibold text-base">Beginner Speaking Certificate</h3>
+                                <p class="text-xs text-secondary-text mt-2">Awarded to <strong>Liam Mitchell</strong></p>
+                                <p class="text-xs text-secondary-text mt-1">Beginner Speaking Camp · Feb 2026</p>
+                                <div class="flex justify-between items-center mt-5 pt-4 border-t border-border">
+                                    <span class="text-xs text-secondary-text">ID: LC-2026-LM-0289</span>
+                                    <button class="text-accent text-xs font-semibold hover:underline"><i class="fas fa-download mr-1"></i> Download PDF</button>
+                                </div>
+                            </div>
+
+                            <div class="dash-card p-6 border-dashed border-border text-center flex flex-col items-center justify-center min-h-[200px]">
+                                <div class="w-14 h-14 rounded-full bg-hover flex items-center justify-center mb-3">
+                                    <i class="fas fa-hourglass-half text-secondary-text text-2xl"></i>
+                                </div>
+                                <p class="font-semibold text-sm">Next Certificate</p>
+                                <p class="text-xs text-secondary-text mt-1">Earned after completing Summer Camp · Jun 2026</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ==================== PAYMENTS ==================== -->
+                <div id="payments" class="admin-section hidden">
+                    <div class="dash-card p-5 sm:p-7 reveal active">
+                        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
+                            <h2 class="text-xl sm:text-2xl font-semibold text-primary-text flex items-center gap-2">
+                                <i class="fas fa-credit-card text-accent"></i> Payments & Billing
+                            </h2>
+                            <button class="px-5 py-2.5 bg-accent-gradient text-white rounded-full text-xs font-semibold uppercase tracking-widest shadow-md">
+                                <i class="fas fa-plus mr-1"></i> Add Payment Method
+                            </button>
+                        </div>
+
+                        <div class="grid md:grid-cols-2 gap-6 mb-8">
+                            <div class="bg-accent-gradient rounded-2xl p-6 text-white">
+                                <p class="text-white/70 text-xs uppercase tracking-wider font-semibold">Outstanding Balance</p>
+                                <p class="text-4xl font-semibold mt-1">$450.00</p>
+                                <p class="text-white/70 text-xs mt-2">Due May 15, 2026</p>
+                                <button class="mt-4 bg-white text-accent font-bold px-6 py-2.5 rounded-full text-xs uppercase tracking-widest hover:scale-105 transition">
+                                    Pay Now
+                                </button>
+                            </div>
+                            <div class="dash-card p-6">
+                                <p class="text-secondary-text text-xs uppercase tracking-wider font-semibold mb-4">This Year's Investment</p>
+                                <div class="flex items-baseline gap-3">
+                                    <p class="text-4xl font-semibold text-accent">$1,650</p>
+                                    <span class="text-sm text-accent flex items-center gap-1"><i class="fas fa-arrow-up"></i> 3 camps</span>
+                                </div>
+                                <div class="mt-5 pt-4 border-t border-border grid grid-cols-2 gap-4">
+                                    <div>
+                                        <p class="text-xs text-secondary-text">Emma</p>
+                                        <p class="font-semibold text-base">$1,270</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-xs text-secondary-text">Liam</p>
+                                        <p class="font-semibold text-base">$380</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3 class="font-semibold text-lg mb-4">Payment Methods</h3>
+                        <div class="space-y-3 mb-8">
+                            <div class="flex items-center justify-between p-4 bg-hover rounded-2xl">
+                                <div class="flex items-center gap-4">
+                                    <i class="fab fa-cc-visa text-3xl text-accent"></i>
+                                    <div>
+                                        <p class="font-semibold text-sm">Visa ending in 4242</p>
+                                        <p class="text-xs text-secondary-text">Expires 08/2028</p>
+                                    </div>
+                                </div>
+                                <span class="badge-active text-[10px]">Default</span>
+                            </div>
+                            <div class="flex items-center justify-between p-4 bg-hover rounded-2xl">
+                                <div class="flex items-center gap-4">
+                                    <i class="fab fa-cc-mastercard text-3xl text-accent"></i>
+                                    <div>
+                                        <p class="font-semibold text-sm">Mastercard ending in 8890</p>
+                                        <p class="text-xs text-secondary-text">Expires 11/2027</p>
+                                    </div>
+                                </div>
+                                <button class="text-secondary-text hover:text-accent p-2"><i class="fas fa-ellipsis-vertical"></i></button>
+                            </div>
+                        </div>
+
+                        <h3 class="font-semibold text-lg mb-4">Recent Invoices</h3>
+                        <div class="space-y-2">
+                            <div class="flex items-center justify-between p-3 bg-hover rounded-xl text-sm">
+                                <span>Mar 18, 2026 · Spring Public Speaking Camp (Emma)</span>
+                                <div class="flex items-center gap-3">
+                                    <span class="font-semibold">$420</span>
+                                    <span class="badge-completed text-[10px]">Paid</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between p-3 bg-hover rounded-xl text-sm">
+                                <span>Feb 12, 2026 · Beginner Speaking Camp (Liam)</span>
+                                <div class="flex items-center gap-3">
+                                    <span class="font-semibold">$350</span>
+                                    <span class="badge-completed text-[10px]">Paid</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between p-3 bg-hover rounded-xl text-sm">
+                                <span>Dec 18, 2025 · Winter Storytelling Camp (Emma)</span>
+                                <div class="flex items-center gap-3">
+                                    <span class="font-semibold">$400</span>
+                                    <span class="badge-completed text-[10px]">Paid</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between p-3 bg-hover rounded-xl text-sm">
+                                <span>May 15, 2026 · Summer Public Speaking Camp (Emma)</span>
+                                <div class="flex items-center gap-3">
+                                    <span class="font-semibold">$450</span>
+                                    <span class="badge-pending text-[10px]">Due</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ==================== SUPPORT ==================== -->
+                <div id="support" class="admin-section hidden">
+                    <div class="dash-card p-5 sm:p-7 reveal active">
+                        <h2 class="text-xl sm:text-2xl font-semibold text-primary-text mb-2 flex items-center gap-2">
+                            <i class="fas fa-headset text-accent"></i> Help & Support
+                        </h2>
+                        <p class="text-secondary-text text-sm mb-8">Our team is here for you and your family. Reach out anytime with questions about camps, progress, or billing.</p>
+
+                        <div class="grid md:grid-cols-2 gap-6 mb-8">
+                            <div class="bg-hover rounded-2xl p-6 text-center">
+                                <div class="w-14 h-14 mx-auto bg-accent/10 rounded-full flex items-center justify-center text-accent text-2xl mb-4">
+                                    <i class="fas fa-phone"></i>
+                                </div>
+                                <h3 class="font-semibold text-lg mb-2">Parent Support Line</h3>
+                                <p class="text-sm text-secondary-text mb-4">Speak to a real person during business hours.</p>
+                                <a href="tel:+18005551234" class="text-accent font-semibold">+1 (800) 555-1234</a>
+                            </div>
+                            <div class="bg-hover rounded-2xl p-6 text-center">
+                                <div class="w-14 h-14 mx-auto bg-accent/10 rounded-full flex items-center justify-center text-accent text-2xl mb-4">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <h3 class="font-semibold text-lg mb-2">Email Support</h3>
+                                <p class="text-sm text-secondary-text mb-4">We respond within 24 hours, 7 days a week.</p>
+                                <a href="mailto:parents@leadcamp.com" class="text-accent font-semibold">parents@leadcamp.com</a>
+                            </div>
+                        </div>
+
+                        <h3 class="font-semibold text-lg mb-4">Frequently Asked Questions</h3>
+                        <div class="space-y-3">
+                            <details class="bg-hover rounded-2xl p-4 cursor-pointer">
+                                <summary class="font-semibold text-sm">Can I cancel or reschedule a camp?</summary>
+                                <p class="text-xs text-secondary-text mt-3">Yes. You can cancel or reschedule up to 14 days before the camp start date for a full refund. Between 7-14 days, a 50% fee applies. Less than 7 days, no refund but you can transfer to another session.</p>
+                            </details>
+                            <details class="bg-hover rounded-2xl p-4 cursor-pointer">
+                                <summary class="font-semibold text-sm">How do I track my child's progress?</summary>
+                                <p class="text-xs text-secondary-text mt-3">Visit the <strong>Skill Progress</strong> tab in your dashboard. You'll see progress bars for each skill module, plus direct feedback from instructors after each session.</p>
+                            </details>
+                            <details class="bg-hover rounded-2xl p-4 cursor-pointer">
+                                <summary class="font-semibold text-sm">When are certificates issued?</summary>
+                                <p class="text-xs text-secondary-text mt-3">Certificates are issued within 5 days of the final showcase and appear in your <strong>Certificates</strong> tab. You can download PDFs anytime.</p>
+                            </details>
+                            <details class="bg-hover rounded-2xl p-4 cursor-pointer">
+                                <summary class="font-semibold text-sm">What if my child has special needs?</summary>
+                                <p class="text-xs text-secondary-text mt-3">We welcome all children. Please email us at parents@leadcamp.com at least 2 weeks before camp starts so we can prepare accommodations and support.</p>
+                            </details>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ==================== SETTINGS ==================== -->
+                <div id="settings" class="admin-section hidden">
+                    <div class="dash-card p-5 sm:p-7 reveal active">
+                        <h2 class="text-xl sm:text-2xl font-semibold text-primary-text mb-8 flex items-center gap-2">
+                            <i class="fas fa-sliders text-accent"></i> Account Settings
+                        </h2>
+
+                        <div class="space-y-8">
+                            <div>
+                                <h3 class="font-semibold text-lg mb-4 pb-2 border-b border-border">Parent Information</h3>
+                                <div class="grid md:grid-cols-2 gap-6">
+                                    <div>
+                                        <label class="text-xs uppercase tracking-wider font-semibold text-secondary-text block mb-2">Full Name</label>
+                                        <input type="text" value="Sarah Mitchell" class="w-full bg-hover border border-border rounded-xl px-4 py-3 text-primary-text outline-none focus:border-accent transition">
+                                    </div>
+                                    <div>
+                                        <label class="text-xs uppercase tracking-wider font-semibold text-secondary-text block mb-2">Email</label>
+                                        <input type="email" value="sarah.mitchell@example.com" class="w-full bg-hover border border-border rounded-xl px-4 py-3 text-primary-text outline-none focus:border-accent transition">
+                                    </div>
+                                    <div>
+                                        <label class="text-xs uppercase tracking-wider font-semibold text-secondary-text block mb-2">Phone</label>
+                                        <input type="tel" value="+1 (555) 234-5678" class="w-full bg-hover border border-border rounded-xl px-4 py-3 text-primary-text outline-none focus:border-accent transition">
+                                    </div>
+                                    <div>
+                                        <label class="text-xs uppercase tracking-wider font-semibold text-secondary-text block mb-2">Emergency Contact</label>
+                                        <input type="text" value="Mark Mitchell · +1 (555) 234-5679" class="w-full bg-hover border border-border rounded-xl px-4 py-3 text-primary-text outline-none focus:border-accent transition">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h3 class="font-semibold text-lg mb-4 pb-2 border-b border-border">Notifications</h3>
+                                <div class="space-y-4">
+                                    <div class="flex items-center justify-between p-4 bg-hover rounded-2xl">
+                                        <div>
+                                            <p class="font-semibold text-sm">Session reminders</p>
+                                            <p class="text-xs text-secondary-text mt-1">Get notified 48h before each camp session</p>
+                                        </div>
+                                        <div class="toggle-switch active" onclick="this.classList.toggle('active'); this.classList.toggle('inactive');">
+                                            <div class="knob"></div>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center justify-between p-4 bg-hover rounded-2xl">
+                                        <div>
+                                            <p class="font-semibold text-sm">Progress updates</p>
+                                            <p class="text-xs text-secondary-text mt-1">Receive a weekly progress summary for each child</p>
+                                        </div>
+                                        <div class="toggle-switch active" onclick="this.classList.toggle('active'); this.classList.toggle('inactive');">
+                                            <div class="knob"></div>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center justify-between p-4 bg-hover rounded-2xl">
+                                        <div>
+                                            <p class="font-semibold text-sm">Certificate alerts</p>
+                                            <p class="text-xs text-secondary-text mt-1">Instant notification when a new certificate is earned</p>
+                                        </div>
+                                        <div class="toggle-switch active" onclick="this.classList.toggle('active'); this.classList.toggle('inactive');">
+                                            <div class="knob"></div>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center justify-between p-4 bg-hover rounded-2xl">
+                                        <div>
+                                            <p class="font-semibold text-sm">Special offers & new camps</p>
+                                            <p class="text-xs text-secondary-text mt-1">Early access to new sessions and early-bird discounts</p>
+                                        </div>
+                                        <div class="toggle-switch inactive" onclick="this.classList.toggle('active'); this.classList.toggle('inactive');">
+                                            <div class="knob"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="pt-4 flex gap-4">
+                                <button class="btn-primary px-8 py-3 rounded-full text-xs font-bold uppercase tracking-widest shadow-xl">Save Changes</button>
+                                <button class="btn-outline px-8 py-3 rounded-full text-xs font-bold uppercase tracking-widest">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ==================== LOGOUT ==================== -->
+                <div id="logout" class="admin-section hidden">
+                    <div class="dash-card p-10 reveal active text-center max-w-lg mx-auto border-red-500/20">
+                        <div class="w-20 h-20 mx-auto bg-red-100 dark:bg-red-900/20 rounded-full flex items-center justify-center text-red-500 text-3xl mb-6">
+                            <i class="fas fa-door-open"></i>
+                        </div>
+                        <h2 class="text-2xl font-semibold text-primary-text">Log out of LEADCAMP?</h2>
+                        <p class="text-secondary-text mt-3 text-sm leading-relaxed">You will need to sign in again to manage your children's camps.</p>
+                        <div class="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
+                            <a href="login.html">
+                                <button class="bg-red-500 hover:bg-red-600 text-white font-bold uppercase tracking-widest px-8 py-3 rounded-full text-[10px] transition shadow-lg shadow-red-200 dark:shadow-none">
+                                    Log Out
+                                </button>
+                            </a>
+                            <button onclick="activateSection('overview'); return false;" class="bg-hover border border-border px-8 py-3 rounded-full text-[10px] font-bold uppercase tracking-widest transition">
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TRUST BANNER -->
+                <div class="bg-accent-gradient rounded-3xl p-6 sm:p-8 mt-10 text-white reveal flex flex-col sm:flex-row items-center justify-between gap-6 shadow-xl">
+                    <div class="flex items-center gap-4 text-center sm:text-left">
+                        <span class="w-3 h-3 bg-white rounded-full animate-ping flex-shrink-0"></span>
+                        <div>
+                            <p class="font-semibold text-lg tracking-tight">Every voice deserves to be heard</p>
+                            <p class="text-xs text-white/85">Secure parent portal · Real-time progress updates · 24/7 support</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <span class="bg-white/20 backdrop-blur-md px-6 py-2.5 rounded-full text-[10px] font-bold uppercase tracking-widest">500+ Young Leaders Trained</span>
+                    </div>
+                </div>
+
+                <!-- FOOTER -->
+                <footer class="mt-12 text-center text-[10px] text-secondary-text border-t border-border pt-8 pb-12 w-full">
+                    <p class="uppercase tracking-[0.3em] font-semibold opacity-40">© 2026 LEADCAMP · Parent Dashboard v1.0</p>
+                    <div class="flex justify-center gap-8 mt-4 font-semibold uppercase opacity-60 flex-wrap">
+                        <span class="hover:text-accent cursor-pointer transition">Privacy</span>
+                        <span class="hover:text-accent cursor-pointer transition">Terms</span>
+                        <span class="hover:text-accent cursor-pointer transition">Safeguarding</span>
+                        <span class="hover:text-accent cursor-pointer transition">Contact</span>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </main>
+
+    <!-- MOBILE DRAWER -->
+    <div id="mobile-menu-drawer" class="fixed inset-0 z-50 pointer-events-none transition-all duration-300">
+        <div id="drawer-backdrop" class="absolute inset-0 bg-black opacity-0 transition-opacity duration-300 pointer-events-none"></div>
+        <div id="drawer-content" class="absolute top-0 left-0 right-0 bg-background rounded-b-2xl shadow-2xl p-6 xl:hidden max-h-[85vh] overflow-y-auto transform translate-y-[-100%] transition-transform duration-300 ease-out">
+            <div class="flex justify-between items-center pb-4 border-b border-border">
+                <a href="index.html" class="text-2xl font-serif font-extrabold tracking-wide flex items-center gap-2">
+                    <i class="fa-solid fa-microphone-lines" style="color: var(--color-accent);"></i>
+                    <span style="color: var(--color-accent);">LEADCAMP</span>
+                </a>
+                <button id="mobile-menu-close" class="text-primary-text hover:text-accent"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+            </div>
+            <nav class="flex flex-col space-y-2 py-4">
+                <a href="#" onclick="activateSection('overview'); return false;" class="block text-primary-text font-semibold text-lg py-2">Dashboard Home</a>
+                <a href="#" onclick="activateSection('children'); return false;" class="block text-primary-text font-semibold text-lg py-2">My Children</a>
+                <a href="#" onclick="activateSection('sessions'); return false;" class="block text-primary-text font-semibold text-lg py-2">Camp Sessions</a>
+                <a href="#" onclick="activateSection('progress'); return false;" class="block text-primary-text font-semibold text-lg py-2">Skill Progress</a>
+                <a href="#" onclick="activateSection('certificates'); return false;" class="block text-primary-text font-semibold text-lg py-2">Certificates</a>
+                <a href="#" onclick="activateSection('payments'); return false;" class="block text-primary-text font-semibold text-lg py-2">Payments</a>
+                <a href="#" onclick="activateSection('support'); return false;" class="block text-primary-text font-semibold text-lg py-2">Help & Support</a>
+                <a href="#" onclick="activateSection('settings'); return false;" class="block text-primary-text font-semibold text-lg py-2">Settings</a>
+                <a href="#" onclick="activateSection('logout'); return false;" class="block text-red-500 font-semibold text-lg py-2">Log Out</a>
+            </nav>
+            <div class="pt-4 border-t border-border mt-4 flex justify-around items-center">
+                <button id="mobile-lang-icon-drawer" class="flex flex-col items-center"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7.5 21 3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5" /></svg><span class="text-xs mt-1 text-secondary-text">RTL</span></button>
+                <button id="drawer-theme-toggle" class="flex flex-col items-center">
+                    <svg class="w-6 h-6 light-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+                    <svg class="w-6 h-6 dark-icon hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+                    <span class="text-xs mt-1 text-secondary-text">Theme</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function () {
+            const html = document.documentElement;
+
+            // Sidebar
+            const sidebar = document.getElementById('sidebar-container');
+            const overlay = document.getElementById('mobile-overlay');
+
+            window.toggleMobileMenu = function(isOpen) {
+                if (isOpen) {
+                    sidebar.classList.remove('-translate-x-full');
+                    overlay.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                } else {
+                    sidebar.classList.add('-translate-x-full');
+                    overlay.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            };
+            document.getElementById('mobile-menu-toggle')?.addEventListener('click', () => toggleMobileMenu(true));
+            document.getElementById('close-sidebar')?.addEventListener('click', () => toggleMobileMenu(false));
+            overlay?.addEventListener('click', () => toggleMobileMenu(false));
+
+            // Mobile drawer
+            const menuDrawer = document.getElementById('mobile-menu-drawer');
+            const menuContent = document.getElementById('drawer-content');
+            const menuBackdrop = document.getElementById('drawer-backdrop');
+            window.closeDrawer = () => {
+                menuContent.classList.add('translate-y-[-100%]');
+                menuBackdrop.classList.remove('opacity-50', 'pointer-events-auto');
+                setTimeout(() => { menuDrawer.classList.add('pointer-events-none'); document.body.style.overflow = ''; }, 300);
+            };
+
+            // Theme
+            const themeToggles = [document.getElementById('theme-toggle-user'), document.getElementById('drawer-theme-toggle')];
+            const applyTheme = (theme) => {
+                html.setAttribute('data-theme', theme);
+                document.querySelectorAll('.light-icon').forEach(i => i.classList.toggle('hidden', theme === 'dark'));
+                document.querySelectorAll('.dark-icon').forEach(i => i.classList.toggle('hidden', theme === 'light'));
+            };
+            themeToggles.forEach(btn => {
+                btn?.addEventListener('click', () => {
+                    const next = html.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+                    localStorage.setItem('theme', next);
+                    applyTheme(next);
+                });
+            });
+            applyTheme(localStorage.getItem('theme') || 'light');
+
+            // RTL
+            const langToggles = [document.getElementById('lang-toggle'), document.getElementById('mobile-lang-icon-drawer')];
+            langToggles.forEach(btn => btn?.addEventListener('click', () => {
+                const current = localStorage.getItem('language') === 'ar' ? 'en' : 'ar';
+                localStorage.setItem('language', current);
+                html.setAttribute('dir', current === 'ar' ? 'rtl' : 'ltr');
+            }));
+            html.setAttribute('dir', localStorage.getItem('language') === 'ar' ? 'rtl' : 'ltr');
+
+            // Section switching
+            const sections = ['overview', 'children', 'sessions', 'progress', 'certificates', 'payments', 'support', 'settings', 'logout'];
+            const sidebarLinks = document.querySelectorAll('.sidebar-link');
+
+            window.activateSection = function (sectionId) {
+                sections.forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) el.classList.add('hidden');
+                });
+                const activeEl = document.getElementById(sectionId);
+                if (activeEl) {
+                    activeEl.classList.remove('hidden');
+                    activeEl.classList.add('active');
+                }
+                sidebarLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.dataset.section === sectionId) link.classList.add('active');
+                });
+                if (window.innerWidth < 1280) {
+                    toggleMobileMenu(false);
+                    closeDrawer();
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            };
+
+            sidebarLinks.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    if (this.dataset.section) activateSection(this.dataset.section);
+                });
+            });
+
+            // Reveal
+            function checkReveal() {
+                document.querySelectorAll('.reveal').forEach(el => {
+                    if (el.getBoundingClientRect().top < window.innerHeight - 50) el.classList.add('active');
+                });
+            }
+            window.addEventListener('scroll', checkReveal);
+            window.addEventListener('load', checkReveal);
+
+            activateSection('overview');
+        })();
+    </script>
+</body>
+</html>
